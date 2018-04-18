@@ -1,0 +1,30 @@
+{% extends "_layouts/cp" %}
+
+{% set title = "Sub-Calendars"|t %}
+
+{% set tabs = {
+    calupdate: { label: "CalUpdate"|t, url: url('drycalendar') },
+    views: { label: "Views"|t, url: url('drycalendar/views.html') },
+    subsets: { label: "Sub-Calendars"|t, url: url('drycalendar/subsets.html') },
+    settings:  { label: "Settings"|t, url: url('drycalendar/settings.html') }
+} %}
+{% set selectedTab = 'subsets' %}
+
+
+{% includeCssResource "drycalendar/calendar.css" %}
+{% includeCssFile siteUrl ~ craft.DryCalendar.getCpCssFile() %}
+
+{# % includeCssResource "lib/redactor/redactor.css" % #}
+{# % includeJsResource "lib/redactor/redactor.js" % #}
+{# % includeJs "$('#alt_text').redactor();" % #}
+
+
+
+
+{% set content %}
+
+<h1>Sub-Calendars</h1>
+
+<p>On this page, you can define calendars that show a subset of all events, such as all events for a particular venue.</P>
+
+{% endset %}

@@ -1,0 +1,40 @@
+{
+    "name": "kr37/drycalendar",
+    "description": "Event calendar with unrestricted repetition",
+    "type": "craft-plugin",
+    "version": "3.0.18046",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "drycalendar"
+    ],
+    "support": {
+        "docs": "???",
+        "issues": "???"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "KR37",
+            "homepage": "http://drycalendar.blogspot.com/"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0-RC1"
+    },
+    "autoload": {
+        "psr-4": {
+          "kr37\\drycalendar\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "DryCalendar",
+        "handle": "drycalendar",
+        "hasCpSettings": true,
+        "hasCpSection": true,
+        "changelogUrl": "???",
+        "class": "kr37\\drycalendar\\DryCalendar"
+    }
+}

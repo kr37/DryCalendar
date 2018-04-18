@@ -1,0 +1,281 @@
+{% import "_includes/forms" as forms %}
+
+
+{{ forms.textField({
+        label: "Timezone"|t,
+        id: 'timezone',
+        name: 'timezone',
+        instructions: 'Example: america/denver  or anything accepted by PHP date&#95;default&#95;timezone&#95;set'|t,
+        value: settings.timezone,
+        errors: settings.getErrors('timezone')
+    }) 
+}}
+
+
+<h2>Calendar formatting</h2>
+
+{{  forms.textField({
+		label: "title"|t,
+		id: 'title',
+		name: 'title',
+		instructions: "Default title for calendars (can be blank)"|t,
+		value: settings.title,
+		errors: settings.getErrors('title')
+	})
+}}
+
+{{  forms.textField({
+		label: "showTails"|t,
+		id: 'showTails',
+		name: 'showTails',
+		instructions: "Suppose the first of the month falls on a Tuesday, and the last day of the month on a Thursday. In this case the calendar could show the last couple of days of the previous month, and the first couple of days of the next month, OR, the calendar could be blank for those days. Set showTails 'yes' to see the previous and next few days. Set showTails to 'no' for blank boxes"|t,
+		value: settings.showTails,
+		errors: settings.getErrors('showTails')
+	})
+}}
+
+{{  forms.textField({
+		label: "filler1"|t,
+		id: 'filler1',
+		name: 'filler1',
+		instructions: "Something to put inside of any preceding blank box, if showTails is set to no"|t,
+		value: settings.filler1,
+		errors: settings.getErrors('filler1')
+	})
+}}
+
+{{  forms.textField({
+		label: "filler2"|t,
+		id: 'filler2',
+		name: 'filler2',
+		instructions: "Something to put inside of any succeeding blank box, if showTails is set to no"|t,
+		value: settings.filler2,
+		errors: settings.getErrors('filler2')
+	})
+}}
+
+{{  forms.textField({
+		label: "rowOfDaysFormat"|t,
+		id: 'rowOfDaysFormat',
+		name: 'rowOfDaysFormat',
+		instructions: "A PHP Date compliant format for the names of the days of the week at the top of a calendar. If blank, then that row will not be displayed<br>Example: 'l' would give Sunday, Monday, etc."|t,
+		value: settings.rowOfDaysFormat,
+		errors: settings.getErrors('rowOfDaysFormat')
+	})
+}}
+
+{{  forms.textField({
+		label: "nodate"|t,
+		id: 'nodate',
+		name: 'nodate',
+		instructions: "If set to 'yes' then no date will be displayed in each box. It is very unlikely that you want this."|t,
+		value: settings.nodate,
+		errors: settings.getErrors('nodate')
+	})
+}}
+
+{{  forms.textField({
+		label: "dateformat"|t,
+		id: 'dateformat',
+		name: 'dateformat',
+		instructions: "PHP Date compliant format for the date at the top of each day of the month.<br>Example: 'D j' would give Sun 12, Mon 13, Tue 14, etc."|t,
+		value: settings.dateformat,
+		errors: settings.getErrors('dateformat')
+	})
+}}
+
+{{  forms.textField({
+		label: "dateformat1st"|t,
+		id: 'dateformat1st',
+		name: 'dateformat1st',
+		instructions: "PHP Date compliant format for the date at the top of the first day of the month.<br>Example: 'D, F j' would give Tue, January 1"|t,
+		value: settings.dateformat1st,
+		errors: settings.getErrors('dateformat1st')
+	})
+}}
+
+{{  forms.textField({
+		label: "occurrenceFormat"|t,
+		id: 'occurrenceFormat',
+		name: 'occurrenceFormat',
+		instructions: "The PHP printf format for an occurrence. The first parameter '%1$s' is the time, and the second parameter, '%2$s' is the event title<br>Examples: '%s %s' or '%2$s&lt;br&gt;%1$s'"|t,
+		value: settings.occurrenceFormat,
+		errors: settings.getErrors('occurrenceFormat')
+	})
+}}
+
+
+
+<h2>More options</h2>
+
+{% set timesJs %}
+$(function() {
+	$("#settings-defaultTimes").click( function() 
+		{
+			times='<option value="">Choose the time...</option><option value="-1">All day/no time - top spot</option><option value="-2">All day/no time - 2nd spot</option><option value="-3">All day/no time - 3rd spot</option><option value="25">All day/no time - 3rd from bottom</option><option value="26">All day/no time - 2nd from bottom</option><option value="27">All day/no time - bottom spot</option><option value="06:30:00">6:30 am</option><option value="07:00:00">7:00 am</option><option value="07:15:00">7:15 am</option><option value="07:30:00">7:30 am</option><option value="07:45:00">7:45 am</option><option value="08:00:00">8:00 am</option><option value="08:15:00">8:15 am</option><option value="08:30:00">8:30 am</option><option value="09:00:00">9:00 am</option><option value="09:30:00">9:30 am</option><option value="10:00:00">10:00 am</option><option value="10:30:00">10:30 am</option><option value="11:00:00">11:00 am</option><option value="11:30:00">11:30 am</option><option value="12:00:00">12:00 pm</option><option value="12:30:00">12:30 pm</option><option value="13:00:00">1:00 pm</option><option value="13:30:00">1:30 pm</option><option value="14:00:00">2:00 pm</option><option value="14:30:00">2:30 pm</option><option value="15:00:00">3:00 pm</option><option value="15:30:00">3:30 pm</option><option value="16:00:00">4:00 pm</option><option value="16:15:00">4:15 pm</option><option value="16:30:00">4:30 pm</option><option value="17:00:00">5:00 pm</option><option value="17:15:00">5:15 pm</option><option value="17:30:00">5:30 pm</option><option value="17:45:00">5:45 pm</option><option value="18:00:00">6:00 pm</option><option value="18:30:00">6:30 pm</option><option value="19:00:00">7:00 pm</option><option value="19:15:00">7:15 pm</option><option value="19:30:00">7:30 pm</option><option value="20:00:00">8:00 pm</option><option value="20:15:00">8:15 pm</option><option value="20:30:00">8:30 pm</option><option value="21:00:00">9:00 pm</option><option value="21:30:00">9:30 pm</option><option value="22:00:00">10:00 pm</option><option value="22:30:00">10:30 pm</option><option value="23:00:00">11:00 pm</option><option value="23:30:00">11:30 pm</option><option value="00:00:00">12:00 am</option><option value="00:30:00">12:30 am</option><option value="01:00:00">1:00 am</option><option value="01:30:00">1:30 am</option><option value="02:00:00">2:00 am</option><option value="02:30:00">2:30 am</option><option value="03:00:00">3:00 am</option><option value="03:30:00">3:30 am</option><option value="04:00:00">4:00 am</option><option value="04:30:00">4:30 am</option><option value="05:00:00">5:00 am</option><option value="05:30:00">5:30 am</option><option value="06:00:00">6:00 am</option>';
+			alert(times);
+			$('#settings-availableTimes').val(times);		
+		}
+      );
+});
+{% endset %}
+{% includeJs timesJs %}
+
+{{ forms.textField({
+        label: "Available Times"|t,
+        id: 'availableTimes',
+        name: 'availableTimes',
+        instructions: "The times people can choose from"|t,
+        value: settings.availableTimes,
+        errors: settings.getErrors('availableTimes')
+    }) 
+}}
+<button id="defaultTimes" type="button">
+	Reset times to default
+</button>
+	 
+{{ forms.textField({
+        label: "Status"|t,
+        id: 'status',
+        name: 'status',
+        instructions: "Only show events with these statuses<br>A space separated list to include any of: &nbsp; live pending expired disabled<br>Normal would be <strong> live pending expired</strong>"|t,
+        value: settings.status,
+        errors: settings.getErrors('status')
+    }) 
+}}
+
+
+{{ forms.textField({
+		label: "categoriesToExclude"|t,
+		id: 'categoriesToExclude',
+		name: 'categoriesToExclude',
+		instructions: "When displaying a calendar or also in the calupdate screen, events with these categories will not be shown<br>A comma-separated list of the category ID numbers"|t,
+		value: settings.categoriesToExclude,
+		errors: settings.getErrors('categoriesToExclude')
+	})
+}}
+
+
+{{ forms.textField({
+		label: "categoriesToInclude"|t,
+		id: 'categoriesToInclude',
+		name: 'categoriesToInclude',
+		instructions: "When displaying a calendar or also in the calupdate screen, only events with these categories will be shown<br><strong>If this is blank, then by default all categories will be available</strong><br>A comma-separated list of the category ID numbers"|t,
+		value: settings.categoriesToInclude,
+		errors: settings.getErrors('categoriesToInclude')
+	})
+}}
+
+
+{{ forms.textField({
+        label: "My Setting"|t,
+        id: 'mySetting',
+        name: 'mySetting',
+        instructions: "Input your setting"|t,
+        value: settings.mySetting,
+        errors: settings.getErrors('mySetting')
+    }) 
+}}
+
+{{ forms.textField({
+        label: "CSS file for control panel calendar (should be in craft/templates)"|t,
+        id: 'cpCssFile',
+        name: 'cpCssFile',
+        instructions: "myCssFile.css"|t,
+        value: settings.cpCssFile,
+        errors: settings.getErrors('cpCssFile')
+    }) 
+}}
+
+{#
+<input type="hidden" name="settings[eventClickDestination]" value="">
+<input type="checkbox" value="on" id="settings-eventClickDestination" class="fieldtoggle checkbox" name="settings[eventClickDestination]" {{ settings.eventClickDestination }} data-target="settings-toggleThis" onclick="if ($(this).is(':checked')) {$('#settings-categoryFieldHandle-field').show(); } else { $('#settings-categoryFieldHandle-field').hide();}" >
+<label for="settings-eventClickDestination">Clicking on an event goes to Category page (checked) or Entry page (unchecked)</label>
+#}
+
+{#
+{{ forms.checkBox({
+		label: "Clicking on an event goes to Category page (checked) or Entry page (unchecked)"|t,
+		id: 'eventClickDestination',
+		name: 'eventClickDestination',
+		instructions: "Where do these go?"|t,
+		value: 'on',
+		checked: settings.eventClickDestination,
+		onclick: '$("#settings-categoryFieldHandle").disabled',
+		errors: settings.getErrors('eventClickDestination'),
+		toggle: 'toggleThis'
+	})
+}}
+#}
+
+<h2>Deep down admin stuff</h2>
+
+
+<h3>Field-handles in entries</h3>
+
+{{ forms.textField({
+        label: "Category Field's Handle"|t,
+        id: 'categoryFieldHandle',
+        name: 'categoryFieldHandle',
+        instructions: "In the entry, what field tells us the category"|t,
+        value: settings.categoryFieldHandle,
+        errors: settings.getErrors('categoryFieldHandle')
+    }) 
+}}
+
+{{ forms.textField({
+        label: "Entry's 'Calendar Text' Field's Handle"|t,
+        id: 'entryCalendarTextFieldHandle',
+        name: 'entryCalendarTextFieldHandle',
+        instructions: "The field handle in an entry that will usually provide the text for this event in the calendar"|t,
+        value: settings.entryCalendarTextFieldHandle,
+        errors: settings.getErrors('entryCalendarTextFieldHandle')
+    }) 
+}}
+
+{{ forms.textField({
+        label: "Start Date Field Handle"|t,
+        id: 'startDateFieldHandle',
+        name: 'startDateFieldHandle',
+        instructions: "In the entry, what field tells us the start date"|t,
+        value: settings.startDateFieldHandle,
+        errors: settings.getErrors('startDateFieldHandle')
+    }) 
+}}
+
+{{ forms.textField({
+        label: "Image Field Handle"|t,
+        id: 'imageFieldHandle',
+        name: 'imageFieldHandle',
+        instructions: "In the entry, what field contains an optional image for these events"|t,
+        value: settings.imageFieldHandle,
+        errors: settings.getErrors('imageFieldHandle')
+    }) 
+}}
+
+{{  forms.textField({
+		label: "urlFieldHandle"|t,
+		id: 'urlFieldHandle',
+		name: 'urlFieldHandle',
+		instructions: "Where to get the URL for any occurrence. THIS IS NOT CURRENTLY USED"|t,
+		value: settings.urlFieldHandle,
+		errors: settings.getErrors('urlFieldHandle')
+	})
+}}
+
+
+
+<h3>Field-handles in categories</h3>
+
+{{ forms.textField({
+        label: "Category's CSS Field Handle"|t,
+        id: 'cssFieldHandle',
+        name: 'cssFieldHandle',
+        instructions: "In the category, what field tells us the CSS"|t,
+        value: settings.cssFieldHandle,
+        errors: settings.getErrors('cssFieldHandle')
+    }) 
+}}
+
+
+

@@ -1,0 +1,113 @@
+{% extends "_layouts/cp" %}
+
+{% set title = "Calendar Settings"|t %}
+
+{% set tabs = {
+    calupdate: { label: "CalUpdate"|t, url: url('drycalendar') },
+    views: { label: "Views"|t, url: url('drycalendar/views.html') },
+    subsets: { label: "Sub-Calendars"|t, url: url('drycalendar/subsets.html') },
+    settings:  { label: "Settings"|t, url: url('drycalendar/settings.html') }
+} %}
+{% set selectedTab = 'settings' %}
+
+{% includeCssResource "drycalendar/calendar.css" %}
+{% includeCssFile siteUrl ~ craft.DryCalendar.getCpCssFile() %}
+
+
+{% set status = 'live pending expired' %}
+{% set categoriesToExclude = 'exc' %}
+{% set categoriesToInclude = 'inc' %}
+{% set title1 = 'title' %}
+{% set showTails = 'yes' %}
+{% set filler1 = 'some previous text' %}
+{% set filler2 = 'some ending text' %}
+{% set rowOfDaysFormat = '' %}
+{% set nodate = 'yes' %}
+{% set dateformat = 'D j' %}
+{% set dateformat1st = 'D, F j' %}
+{% set occurrenceFormat = '%s %s' %}
+{% set urlFieldHandle = '' %}
+
+
+{% set content %}
+
+	<h2>Defaults</h2>
+	<h3>The values on this page are all bogus and not used, but the descriptions and parameter names were valid as of Oct 16, 2015</h3>
+	<p>These defaults may be overridden for particular calendars.</p>
+	
+	<table>
+	<tr><td>Parameter<br>(case sensitive)</td><td>Value</td><td>Description</td></tr>
+	<tr>
+		<td>status</td>
+		<td><input name="status" type="textbox" value="{{ status }}"></td>
+		<td>Only show events with these statuses<br>Space separated list to include any of:<br>live pending expired disabled</td>
+	</tr>
+	<tr>
+		<td>categoriesToExclude</td>
+		<td><input name="" type="textbox" value="{{ categoriesToExclude }}"></td>
+		<td>When displaying a calendar or also in the calupdate screen, events with these categories will not be shown</td>
+	</tr>
+	<tr>
+		<td>categoriesToInclude</td>
+		<td><input name="" type="textbox" value="{{ categoriesToInclude }}"></td>
+		<td>When displaying a calendar or also in the calupdate screen, only events with these categories will be shown<br><strong>If this is blank, then by default all categories will be available</strong></td>
+	</tr>
+	<tr>
+		<td>title</td>
+		<td><input name="title" type="textbox" value="{{ title1 }}"></td>
+		<td>Default title for calendars (can be blank)</td>
+	</tr>
+	<tr>
+		<td>showTails</td>
+		<td><input name="showTails" type="textbox" value="{{ showTails }}"></td>
+		<td>Suppose the first of the month falls on a Tuesday, and the last day of the month on a Thursday. In this case the calendar could show the last couple of days of the previous month, and the first couple of days of the next month, OR, the calendar could be blank for those days. Set showTails 'yes' to see the previous and next few days. Set showTails to 'no' for blank boxes</td>
+	</tr>
+	<tr>
+		<td>filler1</td>
+		<td><input name="filler1" type="textbox" value="{{ filler1 }}"></td>
+		<td>Something to put inside of any preceding blank box, if showTails is set to no</td>
+	</tr>
+	<tr>
+		<td>filler2</td>
+		<td><input name="filler2" type="textbox" value="{{ filler2 }}"></td>
+		<td>Something to put inside of any succeeding blank box, if showTails is set to no</td>
+	</tr>
+	<tr>
+		<td>rowOfDaysFormat</td>
+		<td><input name="rowOfDaysFormat" type="textbox" value="{{ rowOfDaysFormat }}"></td>
+		<td>A PHP Date compliant format for the names of the days of the week at the top of a calendar. If blank, then that row will not be displayed<br>Example: 'l' would give Sunday, Monday, etc.</td>
+	</tr>
+	<tr>
+		<td>nodate</td>
+		<td><input name="nodate" type="textbox" value="{{ nodate }}"></td>
+		<td>If set to 'yes' then no date will be displayed in each box. </td>
+	</tr>
+	<tr>
+		<td>dateformat</td>
+		<td><input name="dateformat" type="textbox" value="{{ dateformat }}"></td>
+		<td>PHP Date compliant format for the date at the top of each day of the month.<br>Example: 'D j' would give </td>
+	</tr>
+	<tr>
+		<td>dateformat1st</td>
+		<td><input name="dateformat1st" type="textbox" value="{{ dateformat1st }}"></td>
+		<td>PHP Date compliant format for the date at the top of the first day of the month.<br>Example: 'D, F j'</td>
+	</tr>
+	<tr>
+		<td>occurrenceFormat</td>
+		<td><input name="occurrenceFormat" type="textbox" value="{{ occurrenceFormat }}"></td>
+		<td>The PHP printf format for an occurrence. The first parameter '%1$s' is the time, and the second parameter, '%2$s' is the event title<br>Examples: '%s %s' or '%2$s<br>%1$s'</td>
+	</tr>
+	<tr>
+		<td>urlFieldHandle</td>
+		<td><input name="urlFieldHandle" type="textbox" value="{{ urlFieldHandle }}"></td>
+		<td>Where to get the URL for any occurrence</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td><input name="" type="textbox" value="{ }"></td>
+		<td></td>
+	</tr>
+
+	</table>
+	
+{% endset %}

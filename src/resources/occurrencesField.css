@@ -1,0 +1,14 @@
+#fields-cal37_choose_dates_button { background-color: pink; }
+
+#fields-cal37_event_inserter { width:100%; }
+
+.cal37_one_micro_cal {  /* Container for a table with it's title */
+	float: left;
+	height: 180px;
+	text-align: center;
+	margin: 2px 5px;
+}
+
+#fields-cal37_micro td { border: 1px solid gray; text-align: right; }
+
+.calday { width: 2.5em; }

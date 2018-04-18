@@ -1,0 +1,135 @@
+/* CalUpdate Styles */
+.gkr_cal_queryresults {
+  bckground-color: white;
+  color:           black; }
+
+/* Calendar Styles */
+.gkr_cal_mainheader
+.gkr_cal_nextprev {}
+
+#cal37 table.cal37 {
+  border:           solid 1px green;
+  border-collapse:  collapse;
+  clear:            both;
+  font-size:        .8em;
+  font-weight:      normal; 
+  width:            98%; }
+#cal37 p.date {
+	border-bottom:   1px solid black;
+	padding:         0;
+	text-align:       center; }
+#cal37 .cal37 th {
+  background-color: lightblue;
+  font-weight:      bold;
+  height:           1em;
+  text-align:       center; }
+
+
+
+.cal37 ul {
+  list-style:       none; 
+  line-height:      1.4;
+  padding-left:     0;
+  text-align:       left; }
+.cal37 td {
+  border:           solid 1px;
+  height:           5em;
+  vertical-align:   top;
+  width:            14.3%; }
+.cal37 td li {
+  border-top:       thin solid gray;
+  padding:          0px .1em 0px 2.2em; 
+  text-indent:      -2em; }
+ul.gkr_cal_tail {
+  display:          none; }
+p.gkr_cal_tail {
+  display:          none; }
+a.cal_link div {
+  background-color: white;
+  display:          none; 
+  left:             100px;
+  position:         absolute; 
+  top:              50px; 
+  width:            50em; }
+a.cal_link:hover div {
+  display:          block; }
+
+/* Daily Calendar Styles */
+div.gkr_cal_daily {
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -khtml-border-radius: 20px;
+  border-radius:    20px;
+  border:           1px solid gray;
+  background-color: lavender;
+  float:            right;
+  padding:          5px 0px;
+  width:            14em; }
+.gkr_cal_daily_day p {
+  color:            steelblue;
+  font-weight:      bold;
+  padding-top:      1em;
+  text-align:       center; }
+.gkr_cal_daily_day ul li {
+  padding:          0px .1em 0px 2.2em; 
+  text-indent:      -2em;
+  list-style-type:  none; }
+.gkr_cal_daily_day ul {
+  list-style-type:  none;
+  margin-left:      -15px;
+  margin-right:     10px;
+  margin-top:       5px; }
+
+
+.calhybrid li { 
+  margin:           1px 0 1px 0;
+  padding:          0px 2px 1px 2.1em; 
+  text-indent:      -2em; }
+.cal37 li a {
+  color:            black; }
+
+.calbranch {        background-color: #AFFEEB; }
+.cal37-gp, .cal37-simply-meditate, .calnoon {  background-color: #FEEBAF; }
+.cal37-puja {          background-color: #E5F3FC; }
+.cal37-fp {            background-color: #C2DD91; }
+.calother {         background-color: lightblue; }
+.calttp {           background-color: #CFDF9F; }
+.calwpc {           background-color: rgb(255,255,204); }
+.calretreat {       background-color: #F7AA9E; }
+.calspecial, .calfestival { background-color: orange; }
+li.calempty {       background-color: #F3F5F7; }
+
+span.calprint {
+  text-align:       right;
+  font-size:        11px;
+  color:            #666; }
+
+/* Calendar Page Styles (not the plugin) */
+div#cal_advanced_options {
+  width:                 15%; }
+div#cal_advanced_options:hover {
+  background-color:      lightgray;
+  width:                 80%; }
+div#cal_advanced_options div {
+  display:               none; }
+div#cal_advanced_options:hover div {
+  display:               block; }
+
+#gkr_cal_filteroptions {
+   margin:  0;
+   padding: 0;
+   z-index: 10; }
+#gkr_cal_filteroptions li {
+  float:            left;
+  color:            #fff;
+  list-style:       none; }
+#gkr_cal_filteroptions li a {
+  background-color: gray;
+  color: #fff;
+  display: block;
+  padding: .1em .1em;
+  margin: 0 .1em;
+  text-decoration: none; }
+ul#gkr_cal_filteroptions li:hover a {
+  color:       blue; }
+

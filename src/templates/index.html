@@ -1,0 +1,78 @@
+{% extends "_layouts/cp" %}
+
+{% set title = "CalUpdate"|t %}
+
+{% set tabs = {
+    calupdate: { label: "CalUpdate"|t, url: url('drycalendar') },
+    subsets: { label: "Sub-Calendars"|t, url: url('drycalendar/subsets.html') },
+    settings:  { label: "Settings"|t, url: url('drycalendar/settings.html') }
+} %}
+{% set selectedTab = 'calupdate' %}
+
+{% includeCssResource "drycalendar/calendar.css" %}
+{% includeCssFile siteUrl ~ craft.DryCalendar.getCpCssFile() %}
+
+
+{% includeCssResource "lib/redactor/redactor.css" %}
+{% includeJsResource "lib/redactor/redactor.js" %}
+{% includeJsResource "lib/redactor/plugins/source.js" %}
+{% includeJsResource "lib/redactor/plugins/table.js" %}
+{% includeJsResource "lib/redactor/plugins/video.js" %}
+{% set redactorJs %}
+    $('#htmlBefore, #htmlAfter').redactor({
+		buttons: ['lists', 'format', 'bold', 'italic', 'image', 'link', 'alignment', 'horizontalrule'],
+		plugins: ['source', 'fullscreen', 'fontcolor', 'table'],
+		formatting: ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'blockquote', 'pre'],
+		toolbarFixedBox: false
+    });
+{% endset %}
+{% includeJs redactorJs %}
+
+
+
+
+{% set content %}
+
+	{% if calupdateResponse is defined %}{{ calupdateResponse|raw }}{% endif %}
+	{% set atts = { 'calupdate' : true } %}
+	{% set cal = craft.DryCalendar.init(null,null,atts)|raw %}
+
+	<p><strong>Instructions:</strong></p>
+	<ul>
+		<li>To add events, put a check by the date of each cell. </li>
+		<li>To delete events, put checks in front of the particular event instances that need to be deleted.</li>
+	</ul>
+	<p>Then press update.  You can add and delete at the same time.</p>
+
+	<form method="post" action="" accept-charset="UTF-8">
+		<input type="hidden" name="action" value="drycalendar/calupdate/AddAndDeleteInstances">
+		<input type="hidden" name="{{ craft.config.csrfTokenName }}" value="{{ craft.request.csrfToken }}">
+		<div id="calupdatetable">
+			<fieldset>
+				<SELECT NAME="post_id">
+					<OPTION VALUE="">Choose a Program...</option>
+					{{ craft.DryCalendar.calUpdateEventsOptions(cal)|raw }}
+				</SELECT>
+		
+				<SELECT name="time1">
+				{{ craft.DryCalendar.calUpdateAvailableTimes()|raw }}
+				</SELECT>
+	
+				<br><label for="AltText">Enter alternate text, if any:</label>
+				<input id="alt_text" type="text" size="30" name="alt_text">
+				<input type="submit" value="update">
+			</fieldset>
+		</div>
+
+		{{ craft.DryCalendar.calUpdateCalendarFull(cal)|raw }}
+		
+		{% set start=craft.DryCalendar.desiredStartYmd(cal) %}
+		{% set end  =craft.DryCalendar.desiredEndYmd(cal) %}
+		<p><label for="htmlBefore">Filler for the start of the month (before {{ start }})</label><br>
+		<textarea id="htmlBefore" class="redactor" name="htmlBefore">{{ craft.DryCalendar.htmlBefore(start,end,null) }}</textarea></p>
+		<p><label for="htmlAfter">Filler for the end of the month (after {{ end }})</label><br>
+		<textarea id="htmlAfter" class="redactor" name="htmlAfter">{{ craft.DryCalendar.htmlAfter(start,end,null) }}</textarea></p>
+		
+	</form>
+
+{% endset %}
