@@ -4,7 +4,7 @@ namespace kr37\drycalendar\variables;
 use Craft;
 
 use kr37\drycalendar\DryCalendar as Plugin;
-use kr37\drycalendar\services\DryCalendarService;
+use kr37\drycalendar\services\DryCalendarService as Service;
 
 class DryCalendarVariable
 {
@@ -26,8 +26,10 @@ class DryCalendarVariable
     }
 
     public function calendar_full($fromDateYmd = null, $toDateYmd = null, $atts = array()) {
-        $cal = craft()->drycalendar->initCal($fromDateYmd, $toDateYmd, $atts);
-        return craft()->drycalendar->calendar_full($cal);
+        $service = new Service;
+        $cal = $service->initCal($fromDateYmd, $toDateYmd, $atts);
+        return $service->calendar_full($cal);
+        //return Plugin::$plugin->calendar_full($cal);
     }
 
     // *** CalUpdate stuff ***

@@ -55,11 +55,11 @@ class DryCalendarService extends Component
             ->from(["$viewsTable"])
             ->where(['startDateYmd' => $cal->desiredStartYmd()])
             ->andWhere(['endDateYmd' => $cal->desiredEndYmd()])
-            ->all();
+            ->one();
 		//$view = $view->findByAttributes(array('startDateYmd'=>$cal->desiredStartYmd(), 'endDateYmd'=>$cal->desiredEndYmd()));
 		if ($view) {
-			$cal->filler1 = $view->htmlBefore;
-			$cal->filler2 = $view->htmlAfter;
+			$cal->filler1 = $view['htmlBefore'];
+			$cal->filler2 = $view['htmlAfter'];
 		}
 
 		// OK, pull all occurrences from the db
@@ -94,11 +94,13 @@ class DryCalendarService extends Component
 						$event->css         = (isset($category)) ? $category->cal37Css : '';
 						$event->eventHandle = (isset($category)) ? $category->slug : '';
 						$event->title       = $entry->{$this->settings->entryCalendarTextFieldHandle} ?: $entry->title;
-						$image = $entry->calendarImage->one();
-						if ($image) {
-							$event->title   = "<img src='{$image->url}' title='{$event->title}'>";
-							$event->imageAsTitle = true;
-						}
+                        if (!is_null($entry->calendarImage)) {
+                            $image = $entry->calendarImage->one();
+                            if ($image) {
+                                $event->title   = "<img src='{$image->url}' title='{$event->title}'>";
+                                $event->imageAsTitle = true;
+                            }
+                        }
 						$cal->event[$eventID]   = $event;
 						$cal->entries[$eventID] = $entry;
 					}
