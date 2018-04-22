@@ -52,7 +52,7 @@ class DryCalendar_CalupdateController extends BaseController
 		$view->subsetId     = craft()->request->getParam('subsetId');
 		$view->startDateYmd = craft()->request->getParam('desiredStartYmd');
 		$view->endDateYmd   = craft()->request->getParam('desiredEndYmd');
-		$view1 = $view->findByAttributes(array('startDateYmd'=>$view->startDateYmd, 'endDateYmd'=>$view->endDateYmd));
+		$view1 = $view->find()->where(array('startDateYmd'=>$view->startDateYmd, 'endDateYmd'=>$view->endDateYmd));
 		if ($view1) {
 			$view = $view1;
 		} else {

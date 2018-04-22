@@ -3,16 +3,17 @@ namespace kr37\drycalendar\services;
 
 use Craft;
 use craft\base\Component;
-use craft\web\Request;
 use craft\db\Query;
+use craft\elements\Entry;
 use craft\helpers\UrlHelper;
+use craft\web\Request;
 
 use kr37\drycalendar\DryCalendar as Plugin;
-use kr37\drycalendar\models\DryCalendar_CalendarModel;
+use kr37\drycalendar\models\CalendarModel;
 use kr37\drycalendar\models\DryCalendar_EventModel;
-use kr37\drycalendar\records\DryCalendar_ViewsRecord;
+use kr37\drycalendar\records\DrycalendarViews;
 
-class DryCalendarService extends Component
+class MainService extends Component
 {
 
 	private $twigAtts;
@@ -20,7 +21,7 @@ class DryCalendarService extends Component
 	private $imageFieldHandle;
 
 	public function initCal($fromDateYmd=NULL, $toDateYmd=NULL, $atts=array()) {
-	// Creates a new DryCalendar_CalendarModel object, populating all the event occurrences
+	// Creates a new CalendarModel object, populating all the event occurrences
 	// Parameters come from either the calling function (TWIG) or from GET/POST. GET/POST always override.
         $calendarTable = 'craft_drycalendar';
         $viewsTable = 'craft_drycalendar_views';
@@ -28,7 +29,7 @@ class DryCalendarService extends Component
 		$this->settings = Plugin::$plugin->getSettings();
 		$this->twigAtts = $atts;
 
-		$cal = new DryCalendar_CalendarModel;
+		$cal = new CalendarModel;
 		$cal->calupdate = (array_key_exists('calupdate',$atts)) ? $atts['calupdate'] : false;
 
   		$cal->showTails        = $this->getParam('showTails');
@@ -56,7 +57,7 @@ class DryCalendarService extends Component
             ->where(['startDateYmd' => $cal->desiredStartYmd()])
             ->andWhere(['endDateYmd' => $cal->desiredEndYmd()])
             ->one();
-		//$view = $view->findByAttributes(array('startDateYmd'=>$cal->desiredStartYmd(), 'endDateYmd'=>$cal->desiredEndYmd()));
+		//$view = $view->find()->where(array('startDateYmd'=>$cal->desiredStartYmd(), 'endDateYmd'=>$cal->desiredEndYmd()));
 		if ($view) {
 			$cal->filler1 = $view['htmlBefore'];
 			$cal->filler2 = $view['htmlAfter'];
@@ -378,22 +379,22 @@ ONEOCCURRENCE;
 
 	public function possibleEvents($cal) {
 		// Get list of current events to choose from
-		$plugin = craft()->plugins->getPlugin('DryCalendar');
-		$this->settings = $plugin->getSettings();
-		$criteria = craft()->elements->getCriteria(ElementType::Entry);
-		$criteria->section = 'events';
-		$criteria->startDate = array("<={$cal->actualEndYmd()}", NULL);
-		$criteria->expiryDate = array(">={$cal->actualStartYmd()}", NULL);
-		$criteria->enabled = '1';
-		$criteria->orderBy = $this->settings->entryCalendarTextFieldHandle . ' ASC';
-		return $criteria->find();
+		$this->settings = Plugin::$plugin->getSettings();
+		$entries = Entry::find()
+		    ->section('events')
+		    ->startDate(array("<={$cal->actualEndYmd()}", NULL))
+		    ->expiryDate(array(">={$cal->actualStartYmd()}", NULL))
+		    ->enabledForSite('1')
+		    ->orderBy($this->settings->entryCalendarTextFieldHandle . ' ASC')
+            ->all();
+		return $entries;
 	}
 
 	function myErrorHandler($errorLevel, $errorMessage) {
 		return true;
 	}
 
-	public function calUpdateEventsOptions(DryCalendar_CalendarModel $cal) {
+	public function calUpdateEventsOptions(CalendarModel $cal) {
 		// Put the possible events into a <SELECT><OPTION>
 		//set_error_handler(array($this,"myErrorHandler"));
 		$events = $this->possibleEvents($cal);
@@ -402,7 +403,7 @@ ONEOCCURRENCE;
 			$name = $row->{$this->settings->entryCalendarTextFieldHandle} ?: $row->title ?: "Entry ID: {$row->id}";
 			$eventsOptions .= "<OPTION VALUE='{$row->id}'>$name &nbsp; | &nbsp; {$row->mainCategory->inReverse()->one()->title}";
 			if ($row->expiryDate > '0000-00-00') {
-				$eventsOptions .= " &nbsp; | &nbsp; " . substr($row->startDate,0,10) . " - " . substr($row->expiryDate,0,10);
+				$eventsOptions .= " &nbsp; | &nbsp; {$row->startDate->format('Y-m-d')} - {$row->expiryDate->format('Y-m-d')}";
 			}
 			$eventsOptions .= "</OPTION>\n					";
 		}
@@ -416,14 +417,12 @@ ONEOCCURRENCE;
 	}
 
 	public function htmlBefore($startYmd = null, $endYmd = null, $subsetId = null) {
-		$view = new DryCalendar_ViewsRecord;
-		$view = $view->findByAttributes(array('startDateYmd'=>$startYmd, 'endDateYmd'=>$endYmd));
+		$view = DrycalendarViews::find()->where(['startDateYmd'=>$startYmd, 'endDateYmd'=>$endYmd])->one();
 		return ($view) ? $view->htmlBefore : '';
 	}
 
 	public function htmlAfter($startYmd = null, $endYmd = null, $subsetId = null) {
-		$view = new DryCalendar_ViewsRecord;
-		$view = $view->findByAttributes(array('startDateYmd'=>$startYmd, 'endDateYmd'=>$endYmd));
+		$view = DrycalendarViews::find()->where(['startDateYmd'=>$startYmd, 'endDateYmd'=>$endYmd])->one();
 		return ($view) ? $view->htmlAfter : '';
 	}
 

@@ -10,9 +10,8 @@
 } %}
 {% set selectedTab = 'settings' %}
 
-{% includeCssResource "drycalendar/calendar.css" %}
+{% do view.registerAssetBundle("kr37\\drycalendar\\assetbundles\\DryCalendarBundle") %}
 {% includeCssFile siteUrl ~ craft.DryCalendar.getCpCssFile() %}
-
 
 {% set status = 'live pending expired' %}
 {% set categoriesToExclude = 'exc' %}
@@ -28,13 +27,12 @@
 {% set occurrenceFormat = '%s %s' %}
 {% set urlFieldHandle = '' %}
 
-
 {% set content %}
 
 	<h2>Defaults</h2>
 	<h3>The values on this page are all bogus and not used, but the descriptions and parameter names were valid as of Oct 16, 2015</h3>
 	<p>These defaults may be overridden for particular calendars.</p>
-	
+
 	<table>
 	<tr><td>Parameter<br>(case sensitive)</td><td>Value</td><td>Description</td></tr>
 	<tr>
@@ -109,5 +107,5 @@
 	</tr>
 
 	</table>
-	
+
 {% endset %}

@@ -5,10 +5,7 @@ use Craft;
 use craft\base\Model;
 use craft\base\Component;
 
-//use kr37\drycalendar\DryCalendar as Plugin;
-//use kr37\drycalendar\services\DryCalendarService;
-
-class DryCalendar_CalendarModel extends Model
+class CalendarModel extends Model
 {
     public $id;
     public $module;
@@ -28,7 +25,8 @@ class DryCalendar_CalendarModel extends Model
 	//$postDays will be 2
 	public $desiredStartNum = null; //The requested start for the calendar
 	public $desiredEndNum = null; //The requested end for the calendar
-	public $actualStartNum = null; //The requested start might not be the first day of the week, so actual start is the first day of the week which includes the desired start.
+    public $actualStartNum = null; //The requested start might not be the first day of the week,
+                        //so actual start is the first day of the week which includes the desired start.
 	public $actualEndNum = null; //The last day of the week that contains the desired end.
 	public $prevDays = null; //The difference (in days) between the desired start and the end of the week
 	public $postDays = null; //The difference (in days) between the desired end and the end of the week

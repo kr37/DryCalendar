@@ -58,6 +58,7 @@ class DryCalendar extends Plugin
      * @var string
      */
     public $schemaVersion = '0.0.15338.2';
+    public $hasCpSection = true;
 
     // Public Methods
     // =========================================================================
@@ -107,7 +108,7 @@ class DryCalendar extends Plugin
 
         // Register our services
         $this->setComponents([
-            'services' => services\DryCalendarService::class,
+            'services' => services\MainService::class,
         ]);
 
         // Register our variables

@@ -9,15 +9,14 @@
 } %}
 {% set selectedTab = 'calupdate' %}
 
-{% includeCssResource "drycalendar/calendar.css" %}
+{% do view.registerAssetBundle("kr37\\drycalendar\\assetbundles\\DryCalendarBundle") %}
 {% includeCssFile siteUrl ~ craft.DryCalendar.getCpCssFile() %}
 
-
-{% includeCssResource "lib/redactor/redactor.css" %}
+{#% includeCssResource "lib/redactor/redactor.css" %}
 {% includeJsResource "lib/redactor/redactor.js" %}
 {% includeJsResource "lib/redactor/plugins/source.js" %}
 {% includeJsResource "lib/redactor/plugins/table.js" %}
-{% includeJsResource "lib/redactor/plugins/video.js" %}
+{% includeJsResource "lib/redactor/plugins/video.js" %#}
 {% set redactorJs %}
     $('#htmlBefore, #htmlAfter').redactor({
 		buttons: ['lists', 'format', 'bold', 'italic', 'image', 'link', 'alignment', 'horizontalrule'],
@@ -27,9 +26,6 @@
     });
 {% endset %}
 {% includeJs redactorJs %}
-
-
-
 
 {% set content %}
 
@@ -53,11 +49,11 @@
 					<OPTION VALUE="">Choose a Program...</option>
 					{{ craft.DryCalendar.calUpdateEventsOptions(cal)|raw }}
 				</SELECT>
-		
+
 				<SELECT name="time1">
 				{{ craft.DryCalendar.calUpdateAvailableTimes()|raw }}
 				</SELECT>
-	
+
 				<br><label for="AltText">Enter alternate text, if any:</label>
 				<input id="alt_text" type="text" size="30" name="alt_text">
 				<input type="submit" value="update">
@@ -65,14 +61,14 @@
 		</div>
 
 		{{ craft.DryCalendar.calUpdateCalendarFull(cal)|raw }}
-		
+
 		{% set start=craft.DryCalendar.desiredStartYmd(cal) %}
 		{% set end  =craft.DryCalendar.desiredEndYmd(cal) %}
 		<p><label for="htmlBefore">Filler for the start of the month (before {{ start }})</label><br>
 		<textarea id="htmlBefore" class="redactor" name="htmlBefore">{{ craft.DryCalendar.htmlBefore(start,end,null) }}</textarea></p>
 		<p><label for="htmlAfter">Filler for the end of the month (after {{ end }})</label><br>
 		<textarea id="htmlAfter" class="redactor" name="htmlAfter">{{ craft.DryCalendar.htmlAfter(start,end,null) }}</textarea></p>
-		
+
 	</form>
 
 {% endset %}

@@ -4,7 +4,7 @@ namespace kr37\drycalendar\records;
 use Craft;
 use craft\db\ActiveRecord;
 
-class DryCalendar_ViewsRecord
+class DrycalendarViews extends ActiveRecord
 {
 	public function getTableName() {
 		return 'drycalendar_Views';
