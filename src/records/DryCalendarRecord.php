@@ -1,13 +1,17 @@
 <?php
-namespace Craft;
+namespace kr37\drycalendar\records
+//namespace Craft;
 
-class DryCalendarRecord extends BaseRecord
+use craft\db\ActiveRecord;
+
+//class DryCalendarRecord extends BaseRecord
+class DryCalendarRecord extends ActiveRecord
 {
 	public function getTableName() {
 		return 'drycalendar';
 	}
 
-	protected function defineAttributes() { 
+	protected function defineAttributes() {
 		return array(
 			// Craft automatically creates 'id' as an autoincrement
 			'event_id'   => AttributeType::Number,
@@ -18,12 +22,11 @@ class DryCalendarRecord extends BaseRecord
 			'userJson'   => AttributeType::String,
 		);
 	}
-	
+
 	public function defineIndexes() {
 		return array(
 			array('columns' => array('event_id', 'dateYmd'), 'key' => true),
 		);
 	}
-	
 
 }
