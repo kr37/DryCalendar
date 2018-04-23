@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
   Make this a settings item
 - Update internal date formats to use DateTime
 - Move all output to twig templates
+- Fix htmlBefore and htmlAfter on calUpdate page and in controller
 
 ## 3.0.0-alpha+20180406 - 2018-04-10
 ### Changed
