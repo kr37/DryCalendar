@@ -11,21 +11,19 @@ use kr37\drycalendar\models\CalendarModel;
 class DryCalendarVariable
 {
     public function getMySetting() {
-        //return craft()->SettingsService->getMySetting();
         return Plugin::$plugin->drycalendar->SettingsService->getMySetting();
     }
 
     public function getCpCssFile() {
-        $settings = new Settings;
-        return $settings->getCpCssFile();
+        return Settings::getCpCssFile();
     }
 
     public function getEventClickDestination() {
-        return Plugin::$plugin->drycalendar->SettingsService->getEventClickDestination();
+        return Settings::getEventClickDestination();
     }
 
     public function getStyleFromCategory() {
-        return Plugin::$plugin->drycalendar->SettingsService->getStyleFromCategory();
+        return Settings::getStyleFromCategory();
     }
 
     public function calendar_full($fromDateYmd = null, $toDateYmd = null, $atts = array()) {
@@ -37,10 +35,9 @@ class DryCalendarVariable
 
     // *** CalUpdate stuff ***
 
-    public function calupdate() {
-        $service = new Service;
-        return $service->calupdate();
-    }
+  /*  public function calupdate() {
+        return Service::calupdate();
+  } */
 
     public function events($fromDateYmd = null, $toDateYmd = null) {
         $service = new Service;

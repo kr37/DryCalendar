@@ -9,7 +9,7 @@
 } %}
 {% set selectedTab = 'calupdate' %}
 
-{% do view.registerAssetBundle("kr37\\drycalendar\\assetbundles\\DryCalendarBundle") %}
+{% do view.registerAssetBundle("kr37\\drycalendar\\DryCalendarBundle") %}
 {% includeCssFile siteUrl ~ craft.DryCalendar.getCpCssFile() %}
 
 {#% includeCssResource "lib/redactor/redactor.css" %}

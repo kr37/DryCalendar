@@ -9,142 +9,96 @@ use kr37\drycalendar\DryCalendar as Plugin;
 class SettingsService extends Component
 {
 
-	public function getMySetting() {
-
-		$settings = Plugin::$plugin->getSettings();
-		return $settings->mySetting;
+	public static function getMySetting() {
+		return Plugin::$plugin->getSettings()->mySetting;
 	}
 
-	public function getCpCssFile() {
-		//
-		$settings = Plugin::$plugin->getSettings();
-		return $settings->cpCssFile;
+	public static function getCpCssFile() {
+		return Plugin::$plugin->getSettings()->cpCssFile;
 	}
 
 	public function getCategoryFieldHandle() {
-
-		$settings = Plugin::$plugin->getSettings();
-		return $settings->categoryFieldHandle;
+		return Plugin::$plugin->getSettings()->categoryFieldHandle;
 	}
 
 	public function getStartDateFieldHandle() {
-
-		$settings = Plugin::$plugin->getSettings();
-		return $settings->startDateFieldHandle;
+		return Plugin::$plugin->getSettings()->startDateFieldHandle;
 	}
 
 	public function getImageFieldHandle() {
-
-		$settings = Plugin::$plugin->getSettings();
-		return $settings->imageFieldHandle;
+		return Plugin::$plugin->getSettings()->imageFieldHandle;
 	}
 
 	public function getCssFieldHandle() {
-
-		$settings = Plugin::$plugin->getSettings();
-		return $settings->cssFieldHandle;
+		return Plugin::$plugin->getSettings()->cssFieldHandle;
 	}
 
   	public function getAvailableTimes() {
-
-		$settings = Plugin::$plugin->getSettings();
-		return $settings->availableTimes;
+		return Plugin::$plugin->getSettings()->availableTimes;
 	}
 
 	public function getStatus() {
-
-		$settings = Plugin::$plugin->getSettings();
-		return $settings->status;
+		return Plugin::$plugin->getSettings()->status;
 	}
 
 	public function getCategoriesToExclude() {
-
-		$settings = Plugin::$plugin->getSettings();
-		return $settings->categoriesToExclude;
+		return Plugin::$plugin->getSettings()->categoriesToExclude;
 	}
 
 	public function getCategoriesToInclude() {
-
-		$settings = Plugin::$plugin->getSettings();
-		return $settings->categoriesToInclude;
+		return Plugin::$plugin->getSettings()->categoriesToInclude;
 	}
 
 	public function getTitle() {
-
-		$settings = Plugin::$plugin->getSettings();
-		return $settings->title;
+		return Plugin::$plugin->getSettings()->title;
 	}
 
 	public function getShowTails() {
-
-		$settings = Plugin::$plugin->getSettings();
-		return $settings->showTails;
+		return Plugin::$plugin->getSettings()->showTails;
 	}
 
 	public function getFiller1() {
-
-		$settings = Plugin::$plugin->getSettings();
-		return $settings->filler1;
+		return Plugin::$plugin->getSettings()->filler1;
 	}
 
 	public function getFiller2() {
-
-		$settings = Plugin::$plugin->getSettings();
-		return $settings->filler2;
+		return Plugin::$plugin->getSettings()->filler2;
 	}
 
 	public function getRowOfDaysFormat() {
-
-		$settings = Plugin::$plugin->getSettings();
-		return $settings->rowOfDaysFormat;
+		return Plugin::$plugin->getSettings()->rowOfDaysFormat;
 	}
 
 	public function getNodate() {
-
-		$settings = Plugin::$plugin->getSettings();
-		return $settings->nodate;
+		return Plugin::$plugin->getSettings()->nodate;
 	}
 
 	public function getDateformat() {
-
-		$settings = Plugin::$plugin->getSettings();
-		return $settings->dateformat . 'D j';
+		return Plugin::$plugin->getSettings()->dateformat . 'D j';
 	}
 
 	public function getDateformat1st() {
-
-		$settings = Plugin::$plugin->getSettings();
-		return $settings->dateformat1st;
+		return Plugin::$plugin->getSettings()->dateformat1st;
 	}
 
 	public function getOccurrenceFormat() {
-
-		$settings = Plugin::$plugin->getSettings();
-		return $settings->occurrenceFormat;
+		return Plugin::$plugin->getSettings()->occurrenceFormat;
 	}
 
 	public function getUrlFieldHandle() {
-
-		$settings = Plugin::$plugin->getSettings();
-		return $settings->urlFieldHandle;
+		return Plugin::$plugin->getSettings()->urlFieldHandle;
 	}
 
 	public function getEntryCalendarTextFieldHandle() {
-
-		$settings = Plugin::$plugin->getSettings();
-		return $settings->entryCalendarTextFieldHandle;
+		return Plugin::$plugin->getSettings()->entryCalendarTextFieldHandle;
 	}
 
 	public function getTimezone() {
-
-		$settings = Plugin::$plugin->getSettings();
-		return $settings->timezone;
+		return Plugin::$plugin->getSettings()->timezone;
 	}
 
 	public function getSections() {
-
-		$settings = Plugin::$plugin->getSettings();
-		return $settings->sections;
+		return Plugin::$plugin->getSettings()->sections;
 	}
 
 	}

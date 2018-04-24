@@ -17,7 +17,6 @@ use craft\events\PluginEvent;
 use craft\web\twig\variables\CraftVariable;
 use yii\base\Event;
 
-//use craft\plugins\drycalendar\models\Settings;
 use kr37\drycalendar\models\Settings;
 use kr37\drycalendar\variables\DryCalendarVariable;
 

@@ -11,7 +11,7 @@ class DrycalendarViews extends ActiveRecord
 		return '{{%drycalendar_Views}}';
 	}
 
-	protected function defineAttributes() {
+/*	protected function defineAttributes() {
 		return array(
 			// Craft automatically creates 'id' as an autoincrement
 			'subsetId'     => AttributeType::String,
@@ -23,7 +23,7 @@ class DrycalendarViews extends ActiveRecord
 			'htmlAfter'    => AttributeType::String,
 		);
 	}
-
+ */
 	public function defineIndexes() {
 		return array(
 			array('columns' => array('subsetId', 'startDateYmd' ), 'key' => true),

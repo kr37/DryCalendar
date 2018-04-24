@@ -1,5 +1,5 @@
 <?php
-namespace kr37\drycalendar\assetbundles;
+namespace kr37\drycalendar;
 
 use Craft;
 use craft\web\AssetBundle;

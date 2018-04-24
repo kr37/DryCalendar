@@ -1,10 +1,9 @@
 <?php
 namespace kr37\drycalendar\controllers;
 
+use Craft;
 use yii\web\Controller;
 use craft\web\Request;
-use yii\db\ActiveQueryInterface;
-use yii\db\ActiveRecord;
 use craft\web\UrlManager;
 
 use kr37\drycalendar\records\Drycalendar;
@@ -25,7 +24,7 @@ class CalupdateController extends Controller
         $success_add = 0;
         $success_del = 0;
 		$allTheQueryParams  = $_POST;
-        $request = new Request;
+        $request = Craft::$app->getRequest();
 		$timestr  = $request->getParam('time1');
 		$event_id = $request->getParam('post_id');
 		$alt_text = $request->getParam('alt_text');
@@ -36,26 +35,25 @@ class CalupdateController extends Controller
 			switch ($first3) {
 				case "add":
 					if (intval($timestr)!=0 && $event_id>0) {
-						$instance = new Drycalendar;
-						$instance->timestr = $timestr;
-						$instance->event_id = $event_id;
-						$instance->alt_text = $alt_text;
-						if ($instance->event_id AND $instance->timestr != "choose") {
-							$instance->dateYmd = $remain;
-							if ($instance->save()) {
+						$occurrence = new Drycalendar;
+						$occurrence->timestr = $timestr;
+						$occurrence->event_id = $event_id;
+						$occurrence->alt_text = $alt_text;
+						if ($occurrence->event_id AND $occurrence->timestr != "choose") {
+							$occurrence->dateYmd = $remain;
+							if ($occurrence->save()) {
 								$success_add++;
 							} else {
-								$out .= "<p>Error in 'add'</p><pre>".print_r($instance->getErrors(),true)."</pre>";
+                                $out .= "<p>Error in 'add'</p><pre>"
+                                     .print_r($occurrence->getErrors(),true)."</pre>";
 							}
 						}
 					}
 					$add++;
 					break;
 				case "del":
-					$instance = new Drycalendar;
                     $occurrence = Drycalendar::findOne($remain);
 					if ($occurrence && $occurrence->delete()) {
-					//if ($instance->deleteByPk($remain)) {
 						$success_del++;
 						$del++;
 					}
@@ -81,9 +79,8 @@ class CalupdateController extends Controller
 		$view->htmlAfter    = $request->getParam('htmlAfter');
 		$view->save();
 
-		$out .= "<p style='color:red'>$success_add of $add records added. $success_del of $del records deleted.</p>\n";
-        $urlManager = new UrlManager;
-      $urlManager->setRouteParams(['calupdateResponse' => $out]);
+		$out .= "<p style='color:red'>$success_add of $add records added. $success_del of $del records deleted.<br>{$view->htmlBefore}</p>\n";
+        Craft::$app->getUrlManager()->setRouteParams(['calupdateResponse' => $out]);
 	}
 
 }
