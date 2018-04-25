@@ -11,8 +11,8 @@
         "drycalendar"
     ],
     "support": {
-        "docs": "???",
-        "issues": "???"
+        "docs": "https://github.com/kr37/drycalendar",
+        "issues": "https://github.com/kr37/drycalendar",
     },
     "license": "MIT",
     "authors": [
@@ -34,7 +34,7 @@
         "handle": "drycalendar",
         "hasCpSettings": true,
         "hasCpSection": true,
-        "changelogUrl": "???",
+        "changelogUrl": "https://github.com/kr37/drycalendar",
         "class": "kr37\\drycalendar\\DryCalendar"
     }
 }
