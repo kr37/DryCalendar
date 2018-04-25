@@ -1,6 +1,6 @@
 {
     "name": "kr37/drycalendar",
-    "description": "Event calendar with unrestricted repetition",
+    "description": "Calendar plugin with unrestricted repetition for Craft CMS 3",
     "type": "craft-plugin",
     "version": "3.0.18046",
     "keywords": [
@@ -18,7 +18,7 @@
     "authors": [
         {
             "name": "KR37",
-            "homepage": "http://drycalendar.blogspot.com/"
+            "homepage": "https://github.com/kr37/drycalendar"
         }
     ],
     "require": {
