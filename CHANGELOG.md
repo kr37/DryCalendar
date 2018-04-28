@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## Unreleased
 
 ## To Do
+- Get the field working
 - DryCalendarService:line 82'mail("kelsangrinzin...'
   Make this a settings item
 - Update internal date formats to use DateTime
