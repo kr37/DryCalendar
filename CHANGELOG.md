@@ -14,6 +14,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Move all output to twig templates
 - Fix htmlBefore and htmlAfter on calUpdate page and in controller
 
+## 3.0.0-alpha+20180429
+### Changed
+- Got the field to show up. Clicking on it still doesn't do anything.
+
 ## 3.0.0-alpha+20180425
 ### Changed
 - Initial attempt to port from Craft 2 to Craft 3

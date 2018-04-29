@@ -13,12 +13,16 @@ namespace kr37\drycalendar;
 use Craft;
 use craft\base\Plugin;
 use craft\services\Plugins;
+use craft\services\Fields;
 use craft\events\PluginEvent;
+use craft\events\RegisterComponentTypesEvent;
 use craft\web\twig\variables\CraftVariable;
+
 use yii\base\Event;
 
 use kr37\drycalendar\models\Settings;
 use kr37\drycalendar\variables\DryCalendarVariable;
+use kr37\drycalendar\fields\CalendarOccurrences;
 
 /**
  * Craft plugins are very much like little applications in and of themselves. We’ve made
@@ -32,7 +36,7 @@ use kr37\drycalendar\variables\DryCalendarVariable;
  *
  * @author    KR37
  * @package   DryCalendar
- * @since     3.0.0-alpha+20180418
+ * @since     3.0.0-alpha+20180429
  *
  */
 class DryCalendar extends Plugin
@@ -58,6 +62,11 @@ class DryCalendar extends Plugin
      */
     public $schemaVersion = '0.0.15338.2';
     public $hasCpSection = true;
+
+    // Constants
+    // =========================================================================
+    const CALENDAR_TABLE = 'craft_drycalendar';
+    const VIEWS_TABLE    = 'craft_drycalendar_views'; 
 
     // Public Methods
     // =========================================================================
@@ -104,6 +113,11 @@ class DryCalendar extends Plugin
                 }
             }
         );
+
+	// Register the Calendar Occurrences ajax field
+        Event::on(Fields::class, Fields::EVENT_REGISTER_FIELD_TYPES, function(RegisterComponentTypesEvent $event) {
+            $event->types[] = CalendarOccurrences::class;
+        });
 
         // Register our services
         $this->setComponents([

@@ -23,8 +23,6 @@ class MainService extends Component
 	public function initCal($fromDateYmd=NULL, $toDateYmd=NULL, $atts=array()) {
 	// Creates a new CalendarModel object, populating all the event occurrences
 	// Parameters come from either the calling function (TWIG) or from GET/POST. GET/POST always override.
-        $calendarTable = 'craft_drycalendar';
-        $viewsTable = 'craft_drycalendar_views';
 
 		$this->settings = Plugin::$plugin->getSettings();
 		$this->twigAtts = $atts;
@@ -53,7 +51,7 @@ class MainService extends Component
 
         $view = (new Query())
             ->select(['*'])
-            ->from(["$viewsTable"])
+            ->from([Plugin::VIEWS_TABLE])
             ->where(['startDateYmd' => $cal->desiredStartYmd()])
             ->andWhere(['endDateYmd' => $cal->desiredEndYmd()])
             ->one();
@@ -66,7 +64,7 @@ class MainService extends Component
 		// OK, pull all occurrences from the db
         $cal->occurrence = (new Query())
             ->select('*')
-			->from("$calendarTable c37")
+			->from(Plugin::CALENDAR_TABLE . " c37")
 			->where("c37.dateYmd >= '{$cal->actualStartYmd()}'")
 			->andWhere("c37.dateYmd <= '{$cal->actualEndYmd()}'")
 			->orderBy('dateYmd ASC, timestr ASC')

@@ -1,15 +1,20 @@
 <?php
-namespace Craft;
+namespace kr37\drycalendar\services;
 
-class DryCalendar_CalendarOccurrencesFieldService extends BaseApplicationComponent
+use Craft;
+use craft\base\Component;
+use craft\db\Query;
+
+use kr37\drycalendar\DryCalendar as Plugin;
+
+class CalendarOccurrencesFieldService extends Component
 {
-
-	public function eventOccurrencesCount ($eventID) {
-		$query = craft()->db->createCommand();
-		$count = $query->select('count(*)')
-			->from('drycalendar c37')
+	public static function eventOccurrencesCount ($eventID) {
+		$count = (new Query())
+			->select('count(*)')
+			->from(Plugin::CALENDAR_TABLE.' c37')
 			->where("c37.event_id = '$eventID'")
-			->queryScalar();
+            ->count();
 		return $count;
 	}
 
@@ -19,7 +24,7 @@ class DryCalendar_CalendarOccurrencesFieldService extends BaseApplicationCompone
 		// Get the occurrences of this entry
 		$query = craft()->db->createCommand();
 		$miniCal->occurrence = $query->select('*')
-			->from('drycalendar c37')
+			->from(Plugin::CALENDAR_TABLE.' c37')
 			->where("c37.event_id = '{$miniCal->entry_id}'")
 			->order('dateYmd ASC, timestr ASC')
 			->queryAll();
