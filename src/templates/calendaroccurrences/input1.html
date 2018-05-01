@@ -1,5 +1,5 @@
 <script>
-	var entry_id = {{ craft.request.getLastSegment()|split('-')|first }};
+	var entry_id = {{ craft.app.request.segments|last|split('-')|first }};
 	var cal37_numOccurrences = {{ count }};
 </script>
 

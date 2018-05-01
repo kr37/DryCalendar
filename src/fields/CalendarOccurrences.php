@@ -9,6 +9,7 @@ use craft\services\Fields;
 use yii\web\View;
 
 use kr37\drycalendar\DryCalendar as Plugin;
+use kr37\drycalendar\DryCalendarBundle;
 use kr37\drycalendar\services\CalendarOccurrencesFieldService as FieldService;
 
 class CalendarOccurrences extends Field
@@ -21,8 +22,10 @@ class CalendarOccurrences extends Field
 	public function getInputHtml($value, ElementInterface $element = null): string
 	{
 
+        $view = Craft::$app->View;
+
 		// Include our Javascript
-		Craft::$app->View->registerJsFile('drycalendar/occurrencesField.js');
+        $view->registerAssetBundle(DryCalendarBundle::class);
 		$settings = Plugin::$plugin->getSettings();
 		$startDateFieldHandle = Craft::$app->View->namespaceInputId($settings['startDateFieldHandle']) . '-date';
 		$calendarText = Craft::$app->View->namespaceInputId($settings['entryCalendarTextFieldHandle']);
@@ -30,20 +33,16 @@ class CalendarOccurrences extends Field
 			. "var entryCalendarTextFieldHandle = '$calendarText';";
 		Craft::$app->View->registerJs($js);
 		
-		// Include CSS
-		Craft::$app->View->registerCssFile('drycalendar/occurrencesField.css');
-
 		// Find out how many times this post is already in the calendar (for the button caption)
 		$count = FieldService::eventOccurrencesCount($element->id); 
 
-		return Craft::$app->getView()->renderTemplate('drycalendar/calendaroccurrences/input1', [
+		return $view->renderTemplate('drycalendar/calendaroccurrences/input1', [
 		    'field' => $this,
 		    'value' => $value,
 		    'count' => $count,
 		    'event_times' => $settings->availableTimes
 		]);   
 	}
-
 
 	public function defineContentAttribute() {
 		// This field does not store anything in the 'content' database table,
@@ -56,6 +55,4 @@ class CalendarOccurrences extends Field
 
 		return $value;
 	}
-
-	
 }

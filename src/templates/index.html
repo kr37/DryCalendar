@@ -10,7 +10,7 @@
 {% set selectedTab = 'calupdate' %}
 
 {% do view.registerAssetBundle("kr37\\drycalendar\\DryCalendarBundle") %}
-{% includeCssFile siteUrl ~ craft.DryCalendar.getCpCssFile() %}
+{% do view.registerCssFile(siteUrl ~ craft.DryCalendar.getCpCssFile()) %}
 
 {#% includeCssResource "lib/redactor/redactor.css" %}
 {% includeJsResource "lib/redactor/redactor.js" %}
@@ -25,7 +25,7 @@
 		toolbarFixedBox: false
     });
 {% endset %}
-{% includeJs redactorJs %}
+{% js redactorJs %}
 
 {% set content %}
 
@@ -42,7 +42,7 @@
 
 	<form method="post" action="" accept-charset="UTF-8">
 		<input type="hidden" name="action" value="drycalendar/calupdate/add-and-delete-instances">
-		<input type="hidden" name="{{ craft.config.csrfTokenName }}" value="{{ craft.request.csrfToken }}">
+		<input type="hidden" name="{{ craft.app.config.general.csrfTokenName }}" value="{{ craft.app.request.csrfToken }}">
 		<div id="calupdatetable">
 			<fieldset>
 				<SELECT NAME="post_id">
