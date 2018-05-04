@@ -259,6 +259,8 @@ class MainService extends Component
 
 		// Output the occurrences
 		$out .= "				<ul class='cal37 cal37_calendar $otherCss' >\n";
+        //$out .= var_export($cal->occurrence).str_repeat("\n",15).var_export($cal->event);
+        //return $out;
         $urlHelper = new UrlHelper;
         $siteUrl = $urlHelper->baseSiteUrl();
 		while ( isset( $cal->occurrence[0] )  &&  $cal->occurrence[0]['dateYmd'] <= $date ) {
