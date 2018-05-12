@@ -10,7 +10,7 @@
 } %}
 {% set selectedTab = 'settings' %}
 
-{% do view.registerAssetBundle("kr37\\drycalendar\\assetbundles\\DryCalendarBundle") %}
+{% do view.registerAssetBundle("kr37\\drycalendar\\DryCalendarBundle") %}
 {% includeCssFile siteUrl ~ craft.DryCalendar.getCpCssFile() %}
 
 {% set status = 'live pending expired' %}
