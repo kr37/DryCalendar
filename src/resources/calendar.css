@@ -1,5 +1,9 @@
 /* Calendar Styles */
 
+#cal37 {
+    width: 100%;
+    overflow-x: auto;
+}
 .cal37_mainheader {
 	width: 100%;
 	text-align:center;
