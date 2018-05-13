@@ -42,8 +42,16 @@ class MainService extends Component
 		$cal->nodate           = $this->getParam('nodate');
 		$catsToInclude         = $this->getParam('categoriesToInclude');
 		$catsToExclude         = $this->getParam('categoriesToExclude');
-		$cal->categoriesToInclude = $catsToInclude ? explode(',', $catsToInclude) : null;
-		$cal->categoriesToExclude = $catsToExclude ? explode(',', $catsToExclude) : null;
+		if (is_array($catsToInclude)) {
+    		$cal->categoriesToInclude = $catsToInclude;
+        } else {
+            $cal->categoriesToInclude = $catsToInclude ? explode(',', $catsToInclude) : null;
+        }
+		if (is_array($catsToExclude)) {
+		    $cal->categoriesToExclude = $catsToExclude;
+        } else {
+    		$cal->categoriesToExclude = $catsToExclude ? explode(',', $catsToExclude) : null;
+        }
 
         $request = new Request;
 		$cal->desiredStartYmd( $request->getParam('calstart') ?: $fromDateYmd ?: date("Y-m-01",time()) );
