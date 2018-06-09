@@ -62,6 +62,7 @@ class DryCalendar extends Plugin
      */
     public $schemaVersion = '0.0.15338.2';
     public $hasCpSection = true;
+    public $hasCpSettings = true;
 
     // Constants
     // =========================================================================
@@ -73,13 +74,14 @@ class DryCalendar extends Plugin
 
     protected function createSettingsModel()
     {
-        return new Settings();
+        return new \kr37\drycalendar\models\Settings();
     }
 
-    public function getSettingsHtml() {
-       return Craft::$app->view->renderTemplate('DryCalendar/_settings', array(
+    public function settingsHtml() 
+    {
+       return \Craft::$app->getView()->renderTemplate('DryCalendar/settings', [
            'settings' => $this->getSettings()
-       ));
+       ]);
     }
 
     public function getVariableDefinition()

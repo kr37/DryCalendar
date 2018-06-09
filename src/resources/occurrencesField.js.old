@@ -12,7 +12,7 @@ jQuery(document).ready(function(){
 	//Set up the event inserter div
 	$("#fields-cal37_choose_dates_button").click( function() { 
 		console.log('Clicked the button');
-
+alert("Clicked the button");	
 		// If it's already visible, just hide it.
 		if ( $('#fields-cal37_event_inserter').is(':visible') ) {
 			$('#fields-cal37_event_inserter').hide();
@@ -33,12 +33,9 @@ jQuery(document).ready(function(){
 		};
 		Date.prototype.fifteenth = function () { return this.yyyy_mm()+"-15"; };
 
-if (typeof startDateFieldHandle === 'undefined') {alert("startDateFieldHandle is undefined.")}else {alert("startDateFieldHandle is "+startDateFieldHandle)}
-alert("Garnish: "+Garnish.calendarOccurrences);	
 		
 		//Get Start Date
 		var start_date = new Date( jQuery("#"+startDateFieldHandle).val() );
-alert("Clicked the button. start_date: "+start_date);	
 		if (isNaN(start_date)) {
 			alert("I'm not sure what that Start Date is. Let's assume it's today.");
 			start_date = new Date();
@@ -97,7 +94,7 @@ alert("Clicked the button. start_date: "+start_date);
 		jQuery('#expirationdate_minute').val('59').change();	
 	}); //jQuery('#cal37_end_date').change
 
-	$('#fields-'+startDateFieldHandle).change(function(data) { updateInfo(); });
+	$('#'+startDateFieldHandle).change(function(data) { updateInfo(); });
 	$('#expiryDate-date').change(function(data) { updateInfo(); });
 	$('#'+entryCalendarTextFieldHandle).change(function(data) { updateInfo(); });
 	
@@ -108,7 +105,7 @@ alert("Clicked the button. start_date: "+start_date);
 
 
 function updateInfo() {
-	var startDate = $('#fields-'+startDateFieldHandle).val();
+	var startDate = $('#'+startDateFieldHandle).val();
 	var endDate   = $('#expiryDate-date').val();
 	var text      = $('#'+entryCalendarTextFieldHandle).val() 
 	text          = text ? text : 'No text set. Will use the title.';
