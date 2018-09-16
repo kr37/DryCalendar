@@ -1,6 +1,6 @@
 <script>
-	var entry_id = {{ craft.app.request.segments|last|split('-')|first }};
-	var cal37_numOccurrences = {{ count }};
+    var entry_id = {{ craft.app.request.segments|last|split('-')|first }};
+    var cal37_numOccurrences = {{ count }};
 </script>
 
 
@@ -12,28 +12,26 @@
 </div>
 
 <div id='cal37_event_inserter' style='display: none;'>
-	<form id="calupdate-form" onclick="return displayCalendars()" action="" method="post">
+    <!--form id="calupdate-form" onclick="return displayCalendars()" action="" method="post"-->
+        <div id="calupdatetable">
+            <fieldset>
+                <div id='cal37_time_alt_text'>
+                    <label for='time1'>Time</label><br>
+                    <SELECT id="time1" name="time1">
+                        {{ event_times|raw }}
+                    </SELECT><br>
+                    <label for="alt_text">Alternate Text (optional)</label><br>
+                    <input id="alt_text" type="text" size="30" name="txt">
+                </div>
+                <div id='cal37_multiclick'>
+                    Clicking on a green or blue square:<br> 
+                    <input type="radio" name="multiOrDelete" value="multi" checked="checked" disabled>Adds another event to the same day<br>
+                    <input type="radio" name="multiOrDelete" value="delete" checked='checked' disabled>Deletes the oldest event
+                </div>
+            </fieldset>
+        </div>
 
-	<div id="calupdatetable">
-	 <fieldset>
-	   <div id='cal37_time_alt_text'>
-		  <label for='time1'>Time</label><br>
-		<SELECT id="time1" name="time1">
-			{{ event_times|raw }}
-		  </SELECT><br>
-		  <label for="alt_text">Alternate Text (optional)</label><br>
-		  <input id="alt_text" type="text" size="30" name="txt">
-		</div>
-		<div id='cal37_multiclick'>
-		 Clicking on a green or blue square:<br> 
-		  <input type="radio" name="multiOrDelete" value="multi" checked="checked" disabled>Adds another event to the same day<br>
-		<input type="radio" name="multiOrDelete" value="delete" checked='checked' disabled>Deletes the oldest event
-		</div>
-	  </fieldset>
-		</div>
-
-	<div id="cal37_micro" width="300px">
-	</div>
-	
-	</form>
+        <div id="cal37_micro" width="300px">
+        </div>
+    <!--/form-->
 </div>

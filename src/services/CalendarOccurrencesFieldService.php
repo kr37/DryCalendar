@@ -6,6 +6,7 @@ use craft\base\Component;
 use craft\db\Query;
 
 use kr37\drycalendar\DryCalendar as Plugin;
+use kr37\drycalendar\models\CalendarOccurrencesFieldDisplayModel;
 
 class CalendarOccurrencesFieldService extends Component
 {
@@ -19,15 +20,22 @@ class CalendarOccurrencesFieldService extends Component
 	}
 
 
-	public function miniCalInit (DryCalendar_CalendarOccurrencesFieldDisplayModel $miniCal) {
+	public function miniCalInit (CalendarOccurrencesFieldDisplayModel $miniCal) {
 
 		// Get the occurrences of this entry
-		$query = craft()->db->createCommand();
+		/*$query = Craft()->db->createCommand();
 		$miniCal->occurrence = $query->select('*')
 			->from(Plugin::CALENDAR_TABLE.' c37')
 			->where("c37.event_id = '{$miniCal->entry_id}'")
 			->order('dateYmd ASC, timestr ASC')
 			->queryAll();
+        */
+		$miniCal->occurrence = (new Query())
+            ->select('*')
+			->from(Plugin::CALENDAR_TABLE.' c37')
+			->where("c37.event_id = '{$miniCal->entry_id}'")
+			->orderBy('dateYmd ASC, timestr ASC')
+			->all();
 			
 		// Get the right title for each occurrence
 		foreach($miniCal->occurrence as $key => $occurrence) {

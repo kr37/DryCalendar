@@ -30,41 +30,11 @@ class CalendarOccurrences extends Field
         $startDateFieldHandle = Craft::$app->View->namespaceInputId($settings['startDateFieldHandle']) . '-date';
         $startDateFieldHandle = Craft::$app->View->namespaceInputId($settings['startDateFieldHandle']);
         $calendarText = Craft::$app->View->namespaceInputId($settings['entryCalendarTextFieldHandle']);
-/*        $js = "var startDateFieldHandle = '$startDateFieldHandle';\n"
-            . "alert( 'startDateFieldHandle = '+startDateFieldHandle);\n"
-            . "var entryCalendarTextFieldHandle = '$calendarText';";
-        Craft::$app->View->registerJs($js);
-*/
-        $field = 'fieldIdSelector';
-        $js = <<<GARNISHJS
-Garnish.calendarOccurrencesField = Garnish.Base.extend(
-    {
-        startDateField: "$startDateFieldHandle",
-        $field: null,
-        options: {},
-        init: function (fieldId, settings) {
-            this.options = $.extend({}, Garnish.calendarOccurrencesField.defaults, settings);
-            this.startDateField = $('#' + this.options.fieldSelector + this.startDateField);
-console.log("fieldId: "+fieldId);
-            this.$field = $('#' + this.options.fieldSelector + fieldId);
-            this.addListener(this.$field, 'click', $.proxy(this, 'clickEvent'));
-        },
-        clickEvent: function(){
-            alert( this.startDateField.val() );
-
-        }
-    },
-    {
-        defaults:{
-            fieldSelector: 'fields-',
-            otherFieldHandle: ''
-        }
-    }
-);
-alert(Garnish.calendarOccurrencesField.startDateField);
-GARNISHJS;
-        Craft::$app->View->registerJs($js);
-        Craft::$app->getView()->registerJs("new Garnish.calendarOccurrencesField('$startDateFieldHandle', {})");       
+        $params = json_encode([
+                'startDateFieldHandle' => $startDateFieldHandle,
+                'entryCalendarTextFieldHandle' => $calendarText,
+            ]);
+        Craft::$app->getView()->registerJs("new Garnish.calendarOccurrencesField('cal37_choose_dates_button', $params)");       
 
         // Find out how many times this post is already in the calendar (for the button caption)
         $count = FieldService::eventOccurrencesCount($element->id); 

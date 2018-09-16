@@ -1,8 +1,15 @@
 <?php
-namespace Craft;
+namespace kr37\drycalendar\models;
 
-class DryCalendar_CalendarOccurrencesFieldDisplayModel extends BaseController
+use Craft;
+use craft\base\Model;
+use craft\base\Component;
+
+class CalendarOccurrencesFieldDisplayModel extends Model
 {
+    public $id;
+    public $module;
+
 	// Inputs
 	public $entry_id = null;
 	public $start_15th = null;

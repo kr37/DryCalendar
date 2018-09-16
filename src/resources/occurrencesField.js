@@ -9,78 +9,104 @@
 
 jQuery(document).ready(function(){
 
-	//Set up the event inserter div
-	$("#fields-cal37_choose_dates_button").click( function() { 
-		console.log('Clicked the button');
+    Garnish.calendarOccurrencesField = Garnish.Base.extend(
+        {
+            startDateField: "startDate-field",
+            entryCalendarTextFieldHandle: null,
+            'fieldIdSelector': null,
+            options: {},
+            init: function (fieldId, settings) {
+                this.options = $.extend({}, Garnish.calendarOccurrencesField.defaults, settings);
+                this.startDateField = this.options.startDateFieldHandle;
+                console.log("this.options.startDateFieldHandle: "+this.options.startDateFieldHandle);
+                console.log("this.options.entryCalendarTextFieldHandle: "+this.options.entryCalendarTextFieldHandle);
+                this.startDateField = $('#' + this.options.fieldSelector + this.startDateField);
+                this.$field = $('#' + this.options.fieldSelector + fieldId);
+                this.addListener(this.$field, 'click', $.proxy(this, 'clickEvent'));
+                console.log("addListener("+'#' + this.options.fieldSelector + fieldId+", 'click', $.proxy(this, 'clickEvent'))");
+                $('#fields-'+this.options.startDateField).change(function(data) { updateInfo(); });
+                $('#expiryDate-date').change(function(data) { updateInfo(); });
+                $('#'+this.options.entryCalendarTextFieldHandle).change(function(data) { updateInfo(); });
+                console.log("Finished Garnish.calendarOccurrencesField.init("+fieldId+")");
+            },
+            clickEvent: function(){
+		        console.log("In my Garnish click-event." );
 
-		// If it's already visible, just hide it.
-		if ( $('#fields-cal37_event_inserter').is(':visible') ) {
-			$('#fields-cal37_event_inserter').hide();
-			return;
-		}
+                // If it's already visible, just hide it.
+                if ( $('#fields-cal37_event_inserter').is(':visible') ) {
+                    $('#fields-cal37_event_inserter').hide();
+                    return;
+                }
 
-		//Prepare the calendars on the modal
+                //Prepare the calendars on the modal
 
-		var cal_text   = jQuery("#cal37_calendar_text").val();
+                var cal_text   = jQuery("#cal37_calendar_text").val();
 
-		//Determine what months to display
-		Date.prototype.addMonth = function(n) { return new Date(this.setMonth(this.getMonth()+n)); };
-		Date.prototype.copy = function () { return new Date(this.getTime()); };
-		Date.prototype.yyyy_mm = function () {
-			var yyyy = this.getFullYear().toString();
-	   		var mm = (this.getMonth()+1).toString(); 
-	   		return yyyy + '-' + (mm[1]?mm:"0"+mm[0]); // padding
-		};
-		Date.prototype.fifteenth = function () { return this.yyyy_mm()+"-15"; };
+                //Determine what months to display
+                Date.prototype.addMonth = function(n) { return new Date(this.setMonth(this.getMonth()+n)); };
+                Date.prototype.copy = function () { return new Date(this.getTime()); };
+                Date.prototype.yyyy_mm = function () {
+                    var yyyy = this.getFullYear().toString();
+                    var mm = (this.getMonth()+1).toString(); 
+                    return yyyy + '-' + (mm[1]?mm:"0"+mm[0]); // padding
+                };
+                Date.prototype.fifteenth = function () { return this.yyyy_mm()+"-15"; };
 
-if (typeof startDateFieldHandle === 'undefined') {alert("startDateFieldHandle is undefined.")}else {alert("startDateFieldHandle is "+startDateFieldHandle)}
-alert("Garnish: "+Garnish.calendarOccurrences);	
-		
-		//Get Start Date
-		var start_date = new Date( jQuery("#"+startDateFieldHandle).val() );
-alert("Clicked the button. start_date: "+start_date);	
-		if (isNaN(start_date)) {
-			alert("I'm not sure what that Start Date is. Let's assume it's today.");
-			start_date = new Date();
-		}
-		
-		//Get End Date
-		var end_date   = new Date(jQuery("#expiryDate-date").val());
-		if (end_date < start_date) {
-			alert("End Date should not occur before Start Date.\nLet's assume that the End Date is the same as the Start Date.");
-			end_date = start_date;
-		}			
-		if (isNaN(end_date)) {
-			//if no end date is specified, we'll display 4 months from either
-			//the start date, or the present day, whichever is later.
-			if ( Date.now() > start_date ) { 
-				start_date = new Date();
-			}
-			end_date = new Date( start_date.fifteenth() );
-			end_date.addMonth(3); //add 3 months		
-		}
-		
-		var calendar_text = $("#"+entryCalendarTextFieldHandle).val();
+                //Get Start Date
+                var start_date = new Date( jQuery('input[id^=fields-startDate]').val() );
+                console.log("Clicked the button. start_date: "+start_date);	
+                if (isNaN(start_date)) {
+                    alert("I'm not sure what that Start Date is. Let's assume it's today.");
+                    start_date = new Date();
+                }
+                
+                //Get End Date
+                var end_date   = new Date(jQuery("input[name='expiryDate[date]'").val());
+                console.log("end_date: "+end_date);
+                if (end_date < start_date) {
+                    alert("End Date should not occur before Start Date.\nLet's assume that the End Date is the same as the Start Date.");
+                    end_date = start_date;
+                }			
+                if (isNaN(end_date)) {
+                    //if no end date is specified, we'll display 4 months from either
+                    //the start date, or the present day, whichever is later.
+                    if ( Date.now() > start_date ) { 
+                        start_date = new Date();
+                    }
+                    end_date = new Date( start_date.fifteenth() );
+                    end_date.addMonth(3); //add 3 months		
+                }
+                
+                var calendar_text = $("#"+this.options.entryCalendarTextFieldHandle).val();
 
-		console.log (start_date.fifteenth() +" "+ end_date.fifteenth() +" calendar_text: "+ calendar_text);
+                console.log (start_date.fifteenth() +" "+ end_date.fifteenth() +" calendar_text: "+ calendar_text);
 
-		var data = { 
-			'entry_id'      : entry_id, 
-			'start_15th'    : start_date.fifteenth(), 
-			'end_15th'      : end_date.fifteenth(),
-			'calendar_text' : calendar_text
-		};
-		
-		Craft.postActionRequest(
-			'drycalendar/calendarOccurrencesField/generateAjaxMiniCalendar', 
-			data, 
-			function(response) {
-				//console.log(response.response);
-				jQuery("#fields-cal37_micro").html(response.response);
-				$("#fields-cal37_event_inserter").show();
-		});
+                var data = { 
+                    'entry_id'      : entry_id, 
+                    'start_15th'    : start_date.fifteenth(), 
+                    'end_15th'      : end_date.fifteenth(),
+                    'calendar_text' : calendar_text
+                };
+                
+                Craft.postActionRequest(
+                    'drycalendar/calendar-occurrences-field/generate-ajax-mini-calendar', 
+                    data, 
+                    function(response) {
+                        //console.log(response.response);
+                        jQuery("#fields-cal37_micro").html(response.response);
+                        $("#fields-cal37_event_inserter").show();
+                });
 
-	}); //jQuery("#cal37_choose_dates_button").click	
+            }
+        },
+        {
+            defaults:{
+                fieldSelector: 'fields-',
+                otherFieldHandle: ''
+            }
+        }
+    );
+
 
 	jQuery('#cal37_end_date').change(function (data) {
 		var monthNames = ["January", "February", "March", "April", "May", "June",
@@ -97,9 +123,6 @@ alert("Clicked the button. start_date: "+start_date);
 		jQuery('#expirationdate_minute').val('59').change();	
 	}); //jQuery('#cal37_end_date').change
 
-	$('#fields-'+startDateFieldHandle).change(function(data) { updateInfo(); });
-	$('#expiryDate-date').change(function(data) { updateInfo(); });
-	$('#'+entryCalendarTextFieldHandle).change(function(data) { updateInfo(); });
 	
 	updateInfo();
  	
@@ -108,9 +131,9 @@ alert("Clicked the button. start_date: "+start_date);
 
 
 function updateInfo() {
-	var startDate = $('#fields-'+startDateFieldHandle).val();
+	var startDate = $('#fields-'+Garnish.calendarOccurrencesField.startDateField).val();
 	var endDate   = $('#expiryDate-date').val();
-	var text      = $('#'+entryCalendarTextFieldHandle).val() 
+	var text      = $('#'+Garnish.calendarOccurrencesField.entryCalendarTextFieldHandle).val() 
 	text          = text ? text : 'No text set. Will use the title.';
 	var info = 'Start Date: ' + startDate + ' &nbsp; End Date: ' + endDate;
 	info += ' &nbsp; Default text: <strong>' + text + '</strong>';

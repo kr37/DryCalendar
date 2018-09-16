@@ -32,7 +32,7 @@ class Settings extends Model
     public function rules()
     {
         return [
-            [['mySetting', 'occurrenceFormat', 'availableTimes', 'status',
+            [['occurrenceFormat', 'availableTimes', 'status',
             'dateformat1st', 'categoryFieldHandle', 'entryCalendarTextFieldHandle',
             'cssFieldHandle', 'startDateFieldHandle'], 'required'],
         ];
