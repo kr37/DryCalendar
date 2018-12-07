@@ -47,15 +47,16 @@ class CalendarOccurrencesFieldController extends Controller
     public function actionDeleteOccurrence() {
     //AJAX server-side update of one item in cell on the mini-calendar in an Occurrences Field
 
+        $fieldService = new FService;
         $request = Craft::$app->getRequest();
         $occurrence_id = $request->getParam( 'occurrence_id' );
-        $result = craft()->drycalendar_calendarOccurrencesField->deleteOccurrence($occurrence_id);
+        $result = $fieldService->deleteOccurrence($occurrence_id);
         $response['success'] = ($result===true) ? 'Deleted' : $result;
 
         // Generate the response: a (probably empty) array of all the occurrences on this day
         $event_id = $request->getParam( 'entry_id');
         $dateYmd  = $request->getParam( 'date');
-        $rs = craft()->drycalendar_calendarOccurrencesField->getOneDaysOccurrences($event_id, $dateYmd);
+        $rs = $fieldService->getOneDaysOccurrences($event_id, $dateYmd);
         $response['returnData'] = array('count'=>count($rs), 'rows'=>$rs);
         $response['message']    = '';
         return $this->asJson($response);
@@ -76,8 +77,10 @@ class CalendarOccurrencesFieldController extends Controller
         $instance->timestr  = $request->getParam( 'timestr');
         $instance->alt_text = $request->getParam( 'alt_text');
         
+        // Do it
         $result = $fieldService->addOccurrence($instance);
         $response['success'] = ($result===true) ? 'Added' : $result;
+
         // Generate the response: an array of all the occurrences on this day
         $resultingOccurrences = $fieldService->getOneDaysOccurrences($instance->event_id, $instance->dateYmd);
         $count = count($resultingOccurrences);

@@ -179,6 +179,13 @@ class CalendarOccurrencesFieldService extends Component
     public function deleteOccurrence ($occurrence_id) {
     // ajax Delete of an occurrence -- posted from the ajax miniCalendar on the CP Entries page.
 
+        $occurrence = DryCalendarRecord::findOne($occurrence_id);
+        if ($occurrence->delete()) {
+            return true; 
+        } else {
+            return "Unable to delete occurrence $occurrence_id.";
+        }
+
         $instance = new DryCalendarRecord;
         if ($instance->deleteByPk($occurrence_id)) {
             return true; 
@@ -205,7 +212,7 @@ class CalendarOccurrencesFieldService extends Component
     // Part of the reply from an ajax add or delete of an occurrence
         $results = (new Query())
             ->select(['id', 'dateYmd', 'timestr', 'alt_text'])
-            ->from('craft_calendar37 c37')
+            ->from(Plugin::CALENDAR_TABLE.' c37')
             ->where("event_id = '$event_id'") 
             ->andWhere("dateYmd = '$dateYmd'")
             ->orderBy('timestr ASC')
