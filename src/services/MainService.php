@@ -196,13 +196,13 @@ class MainService extends Component
 		return $out;
 	}
 
-	public function thisMonth($timestmp) {
+	public static function thisMonth($timestmp) {
 	//Returns the unix timestamp for the first day of the month that $timestmp falls in
 	  $dayofmonth = date("d",$timestmp) - 1;
 	  return strtotime("-".$dayofmonth." day", $timestmp);
 	}
 
-	public function thisSunday($timestmp) {
+	public static function thisSunday($timestmp) {
 	//Returns the unix timestamp for Noon on Sunday of the week that $timestmp falls in (same time of day as timestamp)
 	//There is still some daylight savings time glitch here maybe?
 	  $daynum = date("w", $timestmp);

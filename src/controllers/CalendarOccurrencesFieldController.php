@@ -10,6 +10,7 @@ use craft\web\Request;
 use kr37\drycalendar\DryCalendar as Plugin;
 use kr37\drycalendar\models\CalendarOccurrencesFieldDisplayModel;
 use kr37\drycalendar\services\CalendarOccurrencesFieldService as FService;
+use kr37\drycalendar\records\Drycalendar as DryCalendarRecord;
 
 class CalendarOccurrencesFieldController extends Controller
 {
@@ -34,10 +35,12 @@ class CalendarOccurrencesFieldController extends Controller
         // Initialize the mini-calendar(s)
         $fieldService = new FService;
         $ajaxMiniCal = $fieldService->miniCalInit($miniCal);
- $ajaxMiniCal = "Hi there, dude";
+
         // Reply with the mini-calendar(s)
         $response = array('response' => $ajaxMiniCal, 'request' => $allTheQueryParams);
-        $this->returnJson($response);    
+        if (\Craft::$app->getRequest()->getAcceptsJson()) {
+            return $this->asJson($response);
+        }
     }
 
 
@@ -55,13 +58,14 @@ class CalendarOccurrencesFieldController extends Controller
         $rs = craft()->drycalendar_calendarOccurrencesField->getOneDaysOccurrences($event_id, $dateYmd);
         $response['returnData'] = array('count'=>count($rs), 'rows'=>$rs);
         $response['message']    = '';
-        $this->returnJson($response);    
+        return $this->asJson($response);
 
     } // function actionDeleteOccurrence
 
     
     public function actionAddOccurrence() {
     // AJAX server-side update of one item in cell on the mini-calendar of an Occurrences Field
+        $fieldService = new FService;
 
         // Get the submitted parameters
         //-----------------------------
@@ -71,15 +75,15 @@ class CalendarOccurrencesFieldController extends Controller
         $instance->dateYmd  = $request->getParam( 'dateYmd');
         $instance->timestr  = $request->getParam( 'timestr');
         $instance->alt_text = $request->getParam( 'alt_text');
-        $result = craft()->drycalendar_calendarOccurrencesField->addOccurrence($instance);
-        $response['success'] = ($result===true) ? 'Added' : $result;
         
+        $result = $fieldService->addOccurrence($instance);
+        $response['success'] = ($result===true) ? 'Added' : $result;
         // Generate the response: an array of all the occurrences on this day
-        $resultingOccurrences = craft()->drycalendar_calendarOccurrencesField->getOneDaysOccurrences($instance->event_id, $instance->dateYmd);
+        $resultingOccurrences = $fieldService->getOneDaysOccurrences($instance->event_id, $instance->dateYmd);
         $count = count($resultingOccurrences);
         $response['returnData'] = array('count'=>$count, 'rows'=>$resultingOccurrences);
         $response['message']    = "There are now $count occurrences that day.";
-        $this->returnJson($response);    
+        return $this->asJson($response);
 
     } // function actionAddOccurrence
 }
