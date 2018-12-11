@@ -267,8 +267,6 @@ class MainService extends Component
 
 		// Output the occurrences
 		$out .= "				<ul class='cal37 cal37_calendar $otherCss' >\n";
-        //$out .= var_export($cal->occurrence).str_repeat("\n",15).var_export($cal->event);
-        //return $out;
         $urlHelper = new UrlHelper;
         $siteUrl = $urlHelper->baseSiteUrl();
 		while ( isset( $cal->occurrence[0] )  &&  $cal->occurrence[0]['dateYmd'] <= $date ) {
@@ -278,6 +276,8 @@ class MainService extends Component
 			$row      = array_shift($cal->occurrence);
 			$entryID  = $row['event_id'];
 			$event    = $cal->event[$entryID];
+            preg_match("&.*:\/\/[^\/]*(\/.*)&", $event->url, $matches);
+            $url      = $matches[1];
 			$class    = $row['css_class'] ?: $event->css;
 			$time     = $this->nicetime($row['timestr']);
 			if ($row['alt_text']) {
@@ -294,7 +294,7 @@ class MainService extends Component
 
 			$out .= <<<ONEOCCURRENCE
 					<li data-instance_id='{$row['id']}' data-event_id='$entryID' data-category='{$event->eventHandle}' class='$class {$row['timestr']} $cal->tailStyle'>
-						$updateCheckbox<a href='{$event->url}'>
+						$updateCheckbox<a href='{$url}'>
 ONEOCCURRENCE;
 			$out .= sprintf($cal->occurrenceFormat, $time, $program) . "</a>\n					</li>\n";
 		} //while
