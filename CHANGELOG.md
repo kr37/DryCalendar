@@ -7,12 +7,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## Unreleased
 
 ## To Do
-- Get the field working
 - DryCalendarService:line 82'mail("kelsangrinzin...'
   Make this a settings item
 - Update internal date formats to use DateTime
 - Move all output to twig templates
 - Fix htmlBefore and htmlAfter on calUpdate page and in controller
+
+## 3.1.0+20181211
+### Changed
+- Field is functional (still doesn't deal with multiple occurrences on a day)
+- Urls are now relative
 
 ## 3.0.0-alpha+20180429
 ### Changed
