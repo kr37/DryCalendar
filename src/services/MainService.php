@@ -73,8 +73,10 @@ class MainService extends Component
         $cal->occurrence = (new Query())
             ->select('*')
 			->from(Plugin::CALENDAR_TABLE . " c37")
+            ->leftJoin('craft_elements', 'c37.event_id = craft_elements.id')
 			->where("c37.dateYmd >= '{$cal->actualStartYmd()}'")
 			->andWhere("c37.dateYmd <= '{$cal->actualEndYmd()}'")
+            ->andWhere("craft_elements.enabled = '1'")
 			->orderBy('dateYmd ASC, timestr ASC')
 			->all();
 
