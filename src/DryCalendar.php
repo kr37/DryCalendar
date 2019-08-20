@@ -28,7 +28,7 @@ use kr37\drycalendar\fields\CalendarOccurrences;
  *
  * @author    KR37
  * @package   DryCalendar
- * @since     3.1.1+20190819
+ * @since     3.1.2+20190819 
  *
  **********************************/
 class DryCalendar extends Plugin

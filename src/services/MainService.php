@@ -175,23 +175,21 @@ class MainService extends Component
 			  . "<input type='hidden' name='desiredEndYmd' value='{$cal->desiredEndYmd()}'>\n";
 
 		// Output the calendar-----
-		$next_date_to_display = $this->thisSunday($cal->desiredStartNum);
+		$next_date_to_display = new \DateTime(date("r",$this->thisSunday($cal->desiredStartNum)));
 		$out .= "<div id='cal37'>\n\n"
 			. "	<table class='cal37'>\n";
 
 		//Output a top row of days of the week, if desired
 		if ($cal->rowOfDaysFormat!='') {
 			$out .= "		<tr>\n";
-			//BUG ALERT: These constants for the length of a day or week need to be changed
-			//because on daylight savings days, the length of the day is different.
-			for ($i=$next_date_to_display; $i<$next_date_to_display+7*86400; $i+=86400) {
-				$out .= "			<th>".date($cal->rowOfDaysFormat,$i)."</td>\n";
+			for ($i=$next_date_to_display; $i<$next_date_to_display->add("7 days"); $i->add("1 day")) {
+				$out .= "			<th>".$i->format($cal->rowOfDaysFormat)."</td>\n";
 			}
 			$out .= "		</tr>\n";
 		}
 		//Output the remaining calendar
-		while ($next_date_to_display <= $cal->actualEndNum) {
-			$next_date_to_display=$this->lineofevents($cal, $next_date_to_display, $out);
+		while ($next_date_to_display->format("U") <= $cal->actualEndNum) {
+			$next_date_to_display->setTimestamp($this->lineofevents($cal, $next_date_to_display->getTimestamp(), $out));
 		}
 		$out .= "	</table>\n</div><!--cal37-->\n";
 
