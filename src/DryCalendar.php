@@ -5,7 +5,7 @@
  * Event calendar with unrestricted repetition
  *
  * @link      http://drycalendar.blogspot.com/
- * @copyright Copyright (c) 2018 KR37
+ * @copyright Copyright (c) 2019 KR37
  */
 
 namespace kr37\drycalendar;
@@ -24,21 +24,13 @@ use kr37\drycalendar\models\Settings;
 use kr37\drycalendar\variables\DryCalendarVariable;
 use kr37\drycalendar\fields\CalendarOccurrences;
 
-/**
- * Craft plugins are very much like little applications in and of themselves. We’ve made
- * it as simple as we can, but the training wheels are off. A little prior knowledge is
- * going to be required to write a plugin.
- *
- * For the purposes of the plugin docs, we’re going to assume that you know PHP and SQL,
- * as well as some semi-advanced concepts like object-oriented programming and PHP namespaces.
- *
- * https://craftcms.com/docs/plugins/introduction
+/**********************************
  *
  * @author    KR37
  * @package   DryCalendar
- * @since     3.0.0-alpha+20180429
+ * @since     3.1.1+20190819
  *
- */
+ **********************************/
 class DryCalendar extends Plugin
 {
     // Static Properties
