@@ -13,14 +13,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Move all output to twig templates
 - Fix htmlBefore and htmlAfter on calUpdate page and in controller
 
-## 3.1.2+20190819
-### Changed
-- Fixed the calendar output section so it works with daylight savings time (using DateTime object now)
-
-## 3.1.1+20190819
-### Changed
-- Occurrences for entries that are disabled will now not be shown.
-
 ## 3.1.0+20181211
 ### Changed
 - Field is functional (still doesn't deal with multiple occurrences on a day)
