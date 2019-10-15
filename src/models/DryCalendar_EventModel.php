@@ -3,9 +3,9 @@ namespace kr37\drycalendar\models;
 
 class DryCalendar_EventModel
 {
-	public $title;
-	public $css;
-	public $eventHandle;
-	public $url;
+	public $title;        // The text to be displayed?
+	public $css;          // The css styles to be applied?
+	public $eventHandle;  // 
+	public $url;          // The url to link to
 	public $imageAsTitle;
 }
