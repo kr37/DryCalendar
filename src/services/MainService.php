@@ -134,6 +134,8 @@ class MainService extends Component
 	public function calendar_full($cal) {
 	// This is the main function for displaying a calendar
 
+$c = print_r($cal, true);
+return "<pre>$c</pre>";
 		// Display title with month and year, such as Meditate in Fort Collins ~ December 2006-----
 		$br = $cal->title ? '<br>' : '';
 		$out = "<h2 class='cal37_mainheader'>{$cal->title}$br{$cal->dateHeader()}</h2>\n";
@@ -244,6 +246,7 @@ class MainService extends Component
 		return ($datenum);
 	}
 
+
 	function events1day_all($cal, $datenum, $otherCss) {
 	//Produces a list of all the occurrences on this day
 		static $monthCss;
@@ -291,8 +294,9 @@ class MainService extends Component
 			if ($cal->calupdate) {
 				$program .= " {$entryID}";
 				$updateCheckbox = "<input type='checkbox' name='del{$row['id']}' >\n						";
-			} else
+			} else {
 				$updateCheckbox = '';
+            }
 
 			$out .= <<<ONEOCCURRENCE
 					<li data-instance_id='{$row['id']}' data-event_id='$entryID' data-category='{$event->eventHandle}' class='$class {$row['timestr']} $cal->tailStyle'>
@@ -305,6 +309,7 @@ ONEOCCURRENCE;
 			$out .= "				<br>\n";  //if there were no events, still put a blank line.
 		return $out;
 	} //function events1day_all
+
 
 	function eventsOneDayAll($cal, $datenum, $otherCss) {
 	//Produces a list of all the occurrences on this day
