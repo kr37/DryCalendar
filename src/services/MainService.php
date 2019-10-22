@@ -71,7 +71,8 @@ class MainService extends Component
 
 		// OK, pull all occurrences from the db
         $cal->occurrence = (new Query())
-            ->select('*')
+//            ->select('*')
+            ->select("c37.id, event_id, dateYmd, timestr, alt_text, css_class, userjson")
 			->from(Plugin::CALENDAR_TABLE . " c37")
             ->leftJoin('craft_elements', 'c37.event_id = craft_elements.id')
 			->where("c37.dateYmd >= '{$cal->actualStartYmd()}'")
