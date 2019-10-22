@@ -84,16 +84,16 @@ class CalendarOccurrencesFieldService extends Component
 
         //Days of week
         $output .= "$indent  <tr class=\"calday\">\n";
-        for ($i=$starting_sunday; $i<$second_sunday; $i+=86400) {
+        for ($i=$starting_sunday; $i<$second_sunday; $i=strtotime("+1 day", $i)) {
             $output .= "$indent    <td WIDTH='14%' class='calday'>".date("D",$i)."</td>\n";
         }
         $output .= "$indent  </tr>\n";
 
         //Rest of calendar
-        for ($sunday=$starting_sunday; $sunday<$next_month; $sunday+=604800) {
+        for ($sunday=$starting_sunday; $sunday<$next_month; $sunday=$next_sunday) {
             $output .= "$indent  <tr class='calddate'>\n";
-            $next_sunday = $sunday + 604800;
-            for ($this_day = $sunday; $this_day<$next_sunday; $this_day+=86400) {
+            $next_sunday = strtotime("+1 week", $sunday);
+            for ($this_day = $sunday; $this_day<$next_sunday; $this_day=strtotime("+1 day", $this_day)) {
                 if (($this_day >= $first_of_month) and ($this_day < $next_month))
                     $output .= $this->one_cell($miniCal, $this_day, "", "write_javascript", $indent.'  ');
                 elseif ($tails == 'yes')
