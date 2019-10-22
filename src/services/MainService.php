@@ -134,8 +134,8 @@ class MainService extends Component
 	public function calendar_full($cal) {
 	// This is the main function for displaying a calendar
 
-$c = print_r($cal, true);
-return "<pre>$c</pre>";
+//$c = print_r($cal, true);
+//return "<pre>$c</pre>";
 		// Display title with month and year, such as Meditate in Fort Collins ~ December 2006-----
 		$br = $cal->title ? '<br>' : '';
 		$out = "<h2 class='cal37_mainheader'>{$cal->title}$br{$cal->dateHeader()}</h2>\n";
