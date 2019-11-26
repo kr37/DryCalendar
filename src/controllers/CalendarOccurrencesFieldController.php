@@ -16,7 +16,6 @@ class CalendarOccurrencesFieldController extends Controller
 {
 
     public function actionGenerateAjaxMiniCalendar() {
-
         //$this->requireAjaxRequest();
         
         // Create the mini-calendar object
@@ -31,7 +30,7 @@ class CalendarOccurrencesFieldController extends Controller
         $miniCal->start_15th = strtotime( strtok( $request->getParam('start_15th'), '(' ) );
         $miniCal->end_15th   = strtotime( strtok( $request->getParam('end_15th'), '(' ) );
         $miniCal->calendar_text = $request->getParam('calendar_text');
-        
+
         // Initialize the mini-calendar(s)
         $fieldService = new FService;
         $ajaxMiniCal = $fieldService->miniCalInit($miniCal);

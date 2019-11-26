@@ -37,9 +37,11 @@ class CalendarOccurrencesFieldService extends Component
             $miniCal->title2disp[$key] = $occurrence['alt_text']?: $miniCal->calendar_text ?: $miniCal->entry_id;
         }
         
-        if (count($miniCal->title2disp)) {
-            $miniCal->occurrence = array_values($miniCal->occurrence);
-            $miniCal->title2disp = array_values($miniCal->title2disp);
+        if (is_array($miniCal->title2disp)) {
+            if (count($miniCal->title2disp)) {
+                $miniCal->occurrence = array_values($miniCal->occurrence);
+                $miniCal->title2disp = array_values($miniCal->title2disp);
+            }
         }
         
         // Create the calendars
