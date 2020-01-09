@@ -33,6 +33,11 @@ class DryCalendarVariable
         //return Plugin::$plugin->calendar_full($cal);
     }
 
+    public function calendarObject($fromDateYmd = null, $toDateYmd = null, $atts = array()) {
+        $service = new Service;
+        return $service->initCal($fromDateYmd, $toDateYmd, $atts);
+    }
+
     // *** CalUpdate stuff ***
 
   /*  public function calupdate() {
