@@ -38,6 +38,10 @@ class DryCalendarVariable
         return $service->initCal($fromDateYmd, $toDateYmd, $atts);
     }
 
+    public function twigJsonDecode($json) {
+        return json_decode($json, true);
+    }
+
     // *** CalUpdate stuff ***
 
   /*  public function calupdate() {

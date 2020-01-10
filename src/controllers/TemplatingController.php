@@ -14,6 +14,8 @@ class TemplatingController extends Controller
 
 	public function actionAttendanceUpdate() {
 		// Update from POST
+        // userJson may contain anything, but if attendance
+        // info is included then the keys will be "16+" or "<16"
 		//==================
 
 		$out = '';
@@ -23,34 +25,31 @@ class TemplatingController extends Controller
 		$allTheQueryParams  = $_POST;
 
 		foreach($allTheQueryParams as $name => $value) {
-            $request .= "[$name]=>$value ";
-            if ("" != $value) {
-                $first3 = substr($name,0,3);
-                $remain = substr($name,3);
-                switch ($first3) {
-                    case "atn":
+            //if ($name != 'CRAFT_CSRF_TOKEN') $request .= "[$name]=>$value ";
+            $first3 = substr($name,0,3);
+            $remain = substr($name,3);
+            if ($first3 == "16+" or $first3 == "<16") {
+                $occurrence = Drycalendar::findOne($remain);
+                $userArray = json_decode($occurrence->userJson, true);
+                if (null == $userArray) {
+                    $userArray = [];
+                } else {
+                    if ( array_key_exists($first3, $userArray) && $userArray[$first3] != $value) {
                         $change++; 
-                        $occurrence = Drycalendar::findOne($remain);
-                        $occurrence->userJson = $value;
+                        $userArray[$first3] = $value;
+                        $occurrence->userJson = json_encode($userArray);
                         if ($occurrence->save()) {
                             $success_chg++;
                         } else {
-                            $out .= "<p>Error in 'add'</p><pre>"
+                            $out .= "<p>Error in $name</p><pre>"
                                  .print_r($occurrence->getErrors(),true)."</pre>";
                         }
-                        break;
-                    case "delNOTUSINGTHIS":
-                        $occurrence = Drycalendar::findOne($remain);
-                        if ($occurrence && $occurrence->delete()) {
-                            $success_del++;
-                            $del++;
-                        }
-                        break;
+                    }
                 }
             }
 		}
 
-		$out .= "<p style='color:red'>Processed: $request</p>\n";
+		$out .= "<p style='color:red'>Processed: $request $success_chg out of $change changes</p>\n";
         Craft::$app->getUrlManager()->setRouteParams(['calupdateResponse' => $out]);
 	}
 
