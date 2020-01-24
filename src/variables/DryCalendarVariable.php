@@ -123,4 +123,11 @@ class DryCalendarVariable
         return $out;
     }
 
+
+    // *** Random functions ***
+
+    public function array_reverse($oldArray) {
+        return array_reverse($oldArray);
+    }
+
 }
