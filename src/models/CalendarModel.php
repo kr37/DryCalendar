@@ -56,6 +56,10 @@ class CalendarModel extends Model
 
 	public $urlFieldHandle   = null;     //Where to get the URL for an entry
 
+    // *** Helpers for creating links to the previous and next calendars ***
+    public $linkToPrev = null; // Will end up as like $linkToPrev->text = 'February' and $linkToPrev->param = 'calstart=2020-02-01'
+    public $linkToNext = null; // Will end up as like $linkToNext->text = 'April' and $linkToNext->param = 'calstart=2020-04-01'
+
 	function __construct(){
 		parent::__construct($this->id, $this->module);
 		$this->desiredStartYmd( date("Y-m-01",time()) );
@@ -93,6 +97,18 @@ class CalendarModel extends Model
 	public function actualEndYmd() {
 		return date("Y-m-d", $this->actualEndNum);
 	}
+    public function setLinkToPrev($dateFormat = "F", $howMuchEarlier = "-1 month") {
+		$prevDateNum = strtotime($howMuchEarlier, $this->desiredStartNum);
+        $text        = date($dateFormat, $prevDateNum);
+        $param       = 'calstart=' . date("Y-m-d",$prevDateNum);
+        $this->linkToPrev = (object) ['text' => $text, 'param' => $param];
+    }
+    public function setLinkToNext($dateFormat = "F") {
+		$nextDateNum = strtotime("+1 day",$this->desiredEndNum);  //was last day of the month, now first of the next month
+        $text        = date($dateFormat, $nextDateNum);
+        $param       = 'calstart=' . date("Y-m-d",$nextDateNum);
+        $this->linkToNext = (object) ['text' => $text, 'param' => $param];
+    }
 
 /*	public function defineAttributes() {
 		return array(

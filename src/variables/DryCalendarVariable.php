@@ -86,6 +86,7 @@ class DryCalendarVariable
         return $cal->desiredEndYmd();
     }
 
+
     // *** Main Calendar Stuff ***
 
     public function init($fromDateYmd = null, $toDateYmd = null, $atts) {

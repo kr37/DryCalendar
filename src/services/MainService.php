@@ -71,7 +71,6 @@ class MainService extends Component
 
 		// OK, pull all occurrences from the db
         $cal->occurrence = (new Query())
-//            ->select('*')
             ->select("c37.id, event_id, dateYmd, timestr, alt_text, css_class, userjson")
 			->from(Plugin::CALENDAR_TABLE . " c37")
             ->leftJoin('craft_elements', 'c37.event_id = craft_elements.id')
@@ -120,6 +119,10 @@ class MainService extends Component
 		}
 		$cal->occurrence = array_values($cal->occurrence);
 
+        // Establish links to previous and next month calendar
+        $cal->setLinkToPrev();
+        $cal->setLinkToNext();
+
 		// How will we create URLs?
 		$cal->urlFieldHandle = $this->settings->categoryFieldHandle;
 		return $cal;
@@ -166,12 +169,10 @@ class MainService extends Component
 		$out .= "-->\n\n";
 
 		// Display PREV & NEXT
-		$prevnum = strtotime("-1 month",$cal->desiredStartNum);
-		$nextnum = strtotime("+1 day",$cal->desiredEndNum);  //was last day of the month, now first of the next month
 		$out .= "<div class='cal37_nextprev'>\n"
-		      . "	<a href='{$fn}calstart=".date("Y-m-01",$prevnum)."' >".date("F",$prevnum)."</a>\n"
+		      . "	<a href='{$fn}{$cal->linkToPrev->param}' >{$cal->linkToPrev->text}</a>\n"
 		      . "	".date("F", $cal->desiredStartNum)." \n"
-		      . "	<a href='{$fn}calstart=".date("Y-m-01",$nextnum)."' >".date("F",$nextnum)."</a>\n"
+		      . "	<a href='{$fn}{$cal->linkToNext->param}' >{$cal->linkToNext->text}</a>\n"
 		      . "	<br>\n"
 		      . "</div>\n"
 			  . "<input type='hidden' name='desiredStartYmd' value='{$cal->desiredStartYmd()}'>\n"
