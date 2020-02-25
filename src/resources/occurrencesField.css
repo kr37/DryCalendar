@@ -4,7 +4,6 @@
 
 .cal37_one_micro_cal {  /* Container for a table with it's title */
 	float: left;
-	height: 180px;
 	text-align: center;
 	margin: 2px 5px;
 }

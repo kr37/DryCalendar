@@ -13,6 +13,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Move all output to twig templates
 - Fix htmlBefore and htmlAfter on calUpdate page and in controller
 
+## 3.1.1+20200225
+### Fixed
+- Fixed CSS for minical CP field that broke after the Craft 3.4 update
+
 ## 3.1.0+20181211
 ### Changed
 - Field is functional (still doesn't deal with multiple occurrences on a day)
