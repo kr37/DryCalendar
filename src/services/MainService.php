@@ -443,4 +443,18 @@ ONEOCCURRENCE;
 		return ($view) ? $view->htmlAfter : '';
 	}
 
+    public static function getOccurrences($fromYmd, $toYmd) {
+
+		// OK, pull all occurrences from the db
+        $occurrences = (new Query())
+            ->select("c37.id, event_id, dateYmd, timestr, alt_text, css_class, userjson")
+			->from(Plugin::CALENDAR_TABLE . " c37")
+            ->leftJoin('craft_elements', 'c37.event_id = craft_elements.id')
+			->where("c37.dateYmd >= '$fromYmd'")
+			->andWhere("c37.dateYmd <= '$toYmd'")
+            ->andWhere("craft_elements.enabled = '1'")
+			->orderBy('dateYmd ASC, timestr ASC')
+			->all();
+        return $occurrences;
+    }
 }
