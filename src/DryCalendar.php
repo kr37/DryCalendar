@@ -127,11 +127,15 @@ class DryCalendar extends Plugin
         ]);
 
         // Register our variables
-        Event::on(CraftVariable::class, CraftVariable::EVENT_INIT, function(Event $event) {
+        Event::on(
+            CraftVariable::class, 
+            CraftVariable::EVENT_INIT, 
+            function(Event $event) {
                 /** @var CraftVariable $variable */
                 $variable = $event->sender;
-                    $variable->set('DryCalendar', DryCalendarVariable::class);
-        });
+                $variable->set('DryCalendar', DryCalendarVariable::class);
+             }
+        );
 
 /**
  * Logging in Craft involves using one of the following methods:

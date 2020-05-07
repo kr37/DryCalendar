@@ -10,7 +10,7 @@
 } %}
 {% set selectedTab = 'subsets' %}
 
-{% do view.registerAssetBundle("kr37\\drycalendar\\assetbundles\\DryCalendarBundle") %}
+{% do view.registerAssetBundle("kr37\\drycalendar\\DryCalendarBundle") %}
 {% do view.registerCssFile( siteUrl ~ craft.DryCalendar.getCpCssFile() ) %}
 
 {# % includeCssResource "lib/redactor/redactor.css" % #}

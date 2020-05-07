@@ -447,7 +447,7 @@ ONEOCCURRENCE;
 
 		// OK, pull all occurrences from the db
         $occurrences = (new Query())
-            ->select("c37.id, event_id, dateYmd, timestr, alt_text, css_class, userjson")
+            ->select("c37.id, event_id, dateYmd, timestr, alt_text, css_class, userJson")
 			->from(Plugin::CALENDAR_TABLE . " c37")
             ->leftJoin('craft_elements', 'c37.event_id = craft_elements.id')
 			->where("c37.dateYmd >= '$fromYmd'")
