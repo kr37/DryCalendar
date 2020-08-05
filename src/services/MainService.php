@@ -84,12 +84,13 @@ class MainService extends Component
 		// and catalog event and category info for valid events (to save re-querying for repeated events)
 		foreach($cal->occurrence as $key => $occurrence) {
 			$eventID = $occurrence['event_id'];
-			if ( !isset( $eventIsValid[$eventID] ) ) {
+			if ( !isset( $eventIsValid[$eventID] ) ) { //Have we done this one already?
 				// Collect info about this event. Especially, determine whether or not to display it.
 				$entry    = Craft::$app->entries->getEntryById($eventID);
 				if ($entry==null) {
 					mail("kelsangrinzin@gmail.com","Craft DryCalendar debugging", "In the drycalendar table, there is a record with event_id = $eventID, but there is no corresponding entry number $eventID. I think you should delete this entry for the drycalendar table.");
 					unset($cal->occurrence['key']);
+				    $eventIsValid[$eventID] = 'no';
 					continue;
 				}
 				$category = $entry->mainCategory->inReverse()->one();
@@ -282,6 +283,8 @@ class MainService extends Component
 			//Take the first event off of $cal->occurrence and use it, shortening the array
 			$row      = array_shift($cal->occurrence);
 			$entryID  = $row['event_id'];
+            if (!isset($cal->event[$entryID]))
+                continue;
 			$event    = $cal->event[$entryID];
             preg_match("&.*:\/\/[^\/]*(\/.*)&", $event->url, $matches);
             $url      = $matches[1];
