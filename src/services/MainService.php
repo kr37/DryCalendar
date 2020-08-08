@@ -102,6 +102,7 @@ class MainService extends Component
 						$event->url         = $entry->getUrl();
 						$event->css         = (isset($category)) ? $category->cal37Css : '';
 						$event->eventHandle = (isset($category)) ? $category->slug : '';
+                        $event->catTitle    = $category->title;
 						$event->title       = $entry->{$this->settings->entryCalendarTextFieldHandle} ?: $entry->title;
                         if (!is_null($entry->calendarImage)) {
                             $image = $entry->calendarImage->one();
@@ -457,4 +458,5 @@ ONEOCCURRENCE;
 			->all();
         return $occurrences;
     }
+
 }

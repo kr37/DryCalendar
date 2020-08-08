@@ -28,6 +28,7 @@ class CalupdateController extends Controller
 		$timestr  = $request->getParam('time1');
 		$event_id = $request->getParam('post_id');
 		$alt_text = $request->getParam('alt_text');
+		$eventCss = $request->getParam('eventCss');
 
 		foreach($allTheQueryParams as $name => $value) {
 			$first3 = substr($name,0,3);
@@ -36,9 +37,10 @@ class CalupdateController extends Controller
 				case "add":
 					if (intval($timestr)!=0 && $event_id>0) {
 						$occurrence = new Drycalendar;
-						$occurrence->timestr = $timestr;
-						$occurrence->event_id = $event_id;
-						$occurrence->alt_text = $alt_text;
+						$occurrence->timestr   = $timestr;
+						$occurrence->event_id  = $event_id;
+						$occurrence->alt_text  = $alt_text;
+						$occurrence->css_class = $eventCss;
 						if ($occurrence->event_id AND $occurrence->timestr != "choose") {
 							$occurrence->dateYmd = $remain;
 							if ($occurrence->save()) {

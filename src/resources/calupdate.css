@@ -88,6 +88,7 @@ div.gkr_cal_daily {
 .cal37 li a {
   color:            black; }
 
+.hide       { display: block; color: orange; background-color: white; }}
 .calbranch {        background-color: #AFFEEB; }
 .cal37-gp, .cal37-simply-meditate, .calnoon {  background-color: #FEEBAF; }
 .cal37-puja {          background-color: #E5F3FC; }
