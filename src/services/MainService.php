@@ -404,7 +404,7 @@ ONEOCCURRENCE;
 		    ->section('events')
 		    ->startDate(array("<={$cal->actualEndYmd()}", NULL))
 		    ->expiryDate(array(">={$cal->actualStartYmd()}", NULL))
-		    ->enabledForSite('1')
+		    ->enabledForSite()
 		    ->orderBy($this->settings->entryCalendarTextFieldHandle . ' ASC')
             ->all();
 		return $entries;
