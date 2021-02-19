@@ -3,7 +3,8 @@ namespace kr37\drycalendar\migrations;
 
 use craft\db\Migration;
 
-class Install extends Migration
+//class Install extends Migration
+class m180411_222100_calendar37_UpgradeSettingsForCraft3 extends Migration
 {
 	public function safeUp()
 	{
