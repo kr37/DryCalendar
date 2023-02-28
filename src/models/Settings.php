@@ -29,7 +29,7 @@ class Settings extends Model
 
     public $timezone = "america/denver";
 
-    public function rules()
+    public function rules(): array
     {
         return [
             [['occurrenceFormat', 'availableTimes', 'status',
