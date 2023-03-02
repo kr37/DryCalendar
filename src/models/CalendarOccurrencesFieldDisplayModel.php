@@ -22,6 +22,6 @@ class CalendarOccurrencesFieldDisplayModel extends Model
 	
 	// Constructor
 	function __construct(){
-		parent::__construct($this->id, $this->module);
+		//parent::__construct($this->id, $this->module);
 	}		
 }

@@ -61,7 +61,7 @@ class CalendarModel extends Model
     public $linkToNext = null; // Will end up as like $linkToNext->text = 'April' and $linkToNext->param = 'calstart=2020-04-01'
 
 	function __construct(){
-		parent::__construct($this->id, $this->module);
+		//parent::__construct($this->id, $this->module);
 		$this->desiredStartYmd( date("Y-m-01",time()) );
 	}
 
