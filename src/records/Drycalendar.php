@@ -1,6 +1,7 @@
 <?php
 namespace kr37\drycalendar\records;
 
+use Craft;
 use craft\db\ActiveRecord;
 
 class Drycalendar extends ActiveRecord
