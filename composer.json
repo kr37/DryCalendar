@@ -1,40 +1,41 @@
 {
-    "name": "kr37/drycalendar",
-    "description": "Calendar plugin with unrestricted repetition for Craft CMS 3",
-    "type": "craft-plugin",
-    "version": "3.1.0+20181211",
-    "keywords": [
-        "craft",
-        "cms",
-        "craftcms",
-        "craft-plugin",
-        "drycalendar"
-    ],
-    "support": {
-        "docs": "https://github.com/kr37/drycalendar",
-        "issues": "https://github.com/kr37/drycalendar"
+    "name"          : "kr37/drycalendar",
+    "description"   : "Calendar plugin with unrestricted repetition for Craft CMS 3",
+    "type"          : "craft-plugin",
+    "version"       : "4.0.0+20231112",
+    "schemaVersion" : "4.0.0",
+    "keywords"      : [
+                        "craft",
+                        "cms",
+                        "craftcms",
+                        "craft-plugin",
+                        "drycalendar"
+                      ],
+    "support"       : {
+                        "docs": "https://github.com/kr37/drycalendar",
+                        "issues": "https://github.com/kr37/drycalendar"
     },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "KR37",
-            "homepage": "https://github.com/kr37/drycalendar"
-        }
-    ],
-    "require": {
-        "craftcms/cms": "^4.0.0"
-    },
-    "autoload": {
-        "psr-4": {
-          "kr37\\drycalendar\\": "src/"
-        }
-    },
-    "extra": {
-        "name": "DryCalendar",
-        "handle": "drycalendar",
-        "hasCpSettings": true,
-        "hasCpSection": true,
-        "changelogUrl": "https://github.com/kr37/drycalendar",
-        "class": "kr37\\drycalendar\\DryCalendar"
-    }
+    "license"       : "MIT",
+    "authors"       : [
+                        {
+                            "name": "KR37",
+                            "homepage": "https://github.com/kr37/drycalendar"
+                        }
+                      ],
+    "require"       : {
+                        "craftcms/cms": "^4.0.0"
+                      },
+    "autoload"      : {
+                        "psr-4": {
+                          "kr37\\drycalendar\\": "src/"
+                        }
+                      },
+    "extra"         : {
+                        "name": "DryCalendar",
+                        "handle": "drycalendar",
+                        "hasCpSettings": true,
+                        "hasCpSection": true,
+                        "changelogUrl": "https://github.com/kr37/drycalendar",
+                        "class": "kr37\\drycalendar\\DryCalendar"
+                      }
 }

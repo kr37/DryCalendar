@@ -1,11 +1,22 @@
 <?php
-namespace Craft;
+namespace kr37\drycalendar\records;
 
-class DryCalendar_SubsetsRecord extends BaseRecord
+use Craft;
+use craft\db\ActiveRecord;
+
+class DrycalendarSubsets extends ActiveRecord
+{
+    public static function getTableName() :string
+    {
+		return '{{%drycalendar_subsets}}';
+	}
+
+/*class DryCalendar_SubsetsRecord extends BaseRecord
 {
 	public function getTableName() {
-		return 'drycalendar_Subsets';
+		return 'drycalendar_subsets';
 	}
+*/
 
 	protected function defineAttributes() { 
 		return array(

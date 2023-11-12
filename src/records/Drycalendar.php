@@ -19,6 +19,8 @@ class Drycalendar extends ActiveRecord
 			'timestr'    => AttributeType::String,
 			'alt_text'   => AttributeType::String,
 			'css_class'  => AttributeType::String,
+			'url'        => AttributeType::String,
+			'streamed'   => AttributeType::String,
 			'userJson'   => AttributeType::String,
 		);
 	}

@@ -8,7 +8,7 @@ use craft\db\ActiveQuery;
 class DrycalendarViews extends ActiveRecord
 {
 	public function getTableName() {
-		return '{{%drycalendar_Views}}';
+		return '{{%drycalendar_views}}';
 	}
 
 /*	protected function defineAttributes() {

@@ -18,6 +18,7 @@ class MainService extends Component
 
 	private $twigAtts;
 	private $settings;
+	private $categoryFieldHandle;
 	private $imageFieldHandle;
 
 	public function initCal($fromDateYmd=NULL, $toDateYmd=NULL, $atts=array()) {
@@ -93,7 +94,9 @@ class MainService extends Component
 				    $eventIsValid[$eventID] = 'no';
 					continue;
 				}
-				$category = $entry->mainCategory->inReverse()->one();
+                $catFieldHandle = $this->settings->categoryFieldHandle;
+                $cssFieldHandle = $this->settings->cssFieldHandle;
+				$category = $entry->$catFieldHandle->inReverse()->one();
 
 				$eventIsValid[$eventID] = 'no'; //We'll change it to yes if it turns out to be good.
 				if ( empty($cal->categoriesToInclude) || in_array($category->id, $cal->categoriesToInclude) ) {
@@ -101,7 +104,7 @@ class MainService extends Component
 						$eventIsValid[$eventID] = 'yes';
 						$event = new DryCalendar_EventModel;
 						$event->url         = $entry->getUrl();
-						$event->css         = (isset($category)) ? $category->cal37Css : '';
+						$event->css         = (isset($category)) ? $category->$cssFieldHandle : '';
 						$event->eventHandle = (isset($category)) ? $category->slug : '';
 						$event->title       = $entry->{$this->settings->entryCalendarTextFieldHandle} ?: $entry->title;
                         if (!is_null($entry->calendarImage)) {
@@ -405,7 +408,7 @@ ONEOCCURRENCE;
 		    ->startDate(array("<={$cal->actualEndYmd()}", NULL))
 		    ->expiryDate(array(">={$cal->actualStartYmd()}", NULL))
 		    ->status(['live'])
-		    ->orderBy($this->settings->entryCalendarTextFieldHandle . ' ASC')
+		    ->orderBy( [$this->settings->entryCalendarTextFieldHandle => SORT_ASC] )
             ->all();
 		return $entries;
 	}
@@ -417,11 +420,13 @@ ONEOCCURRENCE;
 	public function calUpdateEventsOptions(CalendarModel $cal) {
 		// Put the possible events into a <SELECT><OPTION>
 		//set_error_handler(array($this,"myErrorHandler"));
+        $settings = Plugin::$plugin->getSettings();
+        $categoryField = $settings->categoryFieldHandle;
 		$events = $this->possibleEvents($cal);
 		$eventsOptions = '';
 		foreach ($events as $row) {
 			$name = $row->{$this->settings->entryCalendarTextFieldHandle} ?: $row->title ?: "Entry ID: {$row->id}";
-			$eventsOptions .= "<OPTION VALUE='{$row->id}'>$name &nbsp; | &nbsp; {$row->mainCategory->inReverse()->one()->title}";
+			$eventsOptions .= "<OPTION VALUE='{$row->id}'>$name &nbsp; | &nbsp; {$row->$categoryField->inReverse()->one()->title}";
 			if ($row->expiryDate > '0000-00-00') {
 				$eventsOptions .= " &nbsp; | &nbsp; {$row->startDate->format('Y-m-d')} - {$row->expiryDate->format('Y-m-d')}";
 			}
