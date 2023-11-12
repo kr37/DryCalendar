@@ -13,6 +13,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Move all output to twig templates
 - Fix htmlBefore and htmlAfter on calUpdate page and in controller
 
+## 4.0.0+20231112
+### Changed
+- Added fields 'url' and 'streamed' to drycalendar table.
+- Updated composer.json (added schemaVersion)
+- Removed old migrations
+### Fixed
+- Added install.php for creating and removing tables on install/uninstall
+- Fixed not using settings for field handles on category CSS, main category.
 ## 3.1.1+20200225
 ### Fixed
 - Fixed CSS for minical CP field that broke after the Craft 3.4 update
