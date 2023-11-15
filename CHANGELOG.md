@@ -7,19 +7,22 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## Unreleased
 
 ## To Do
-- DryCalendarService:line 82'mail("kelsangrinzin...'
+- DryCalendarService:line 82'mail("kelsan...'
   Make this a settings item
 - Update internal date formats to use DateTime
-- Move all output to twig templates
 - Fix htmlBefore and htmlAfter on calUpdate page and in controller
 
+## 4.0.1+20231115
+### Changed
+- Clarified settings instructions
+- Minor code tidying
 ## 4.0.0+20231112
 ### Changed
 - Added fields 'url' and 'streamed' to drycalendar table.
 - Updated composer.json (added schemaVersion)
 - Removed old migrations
 ### Fixed
-- Added install.php for creating and removing tables on install/uninstall
+- Added migrations/Install.php for creating and removing tables on install/uninstall
 - Fixed not using settings for field handles on category CSS, main category.
 ## 3.1.1+20200225
 ### Fixed

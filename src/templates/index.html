@@ -60,7 +60,10 @@
 			</fieldset>
 		</div>
 
+        <div id="calUpdate">
 		{{ craft.DryCalendar.calUpdateCalendarFull(cal)|raw }}
+
+        </div>
 
 		{% set start=craft.DryCalendar.desiredStartYmd(cal) %}
 		{% set end  =craft.DryCalendar.desiredEndYmd(cal) %}

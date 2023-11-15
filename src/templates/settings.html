@@ -28,7 +28,7 @@
 		label: "showTails"|t,
 		id: 'showTails',
 		name: 'showTails',
-		instructions: "Suppose the first of the month falls on a Tuesday, and the last day of the month on a Thursday. In this case the calendar could show the last couple of days of the previous month, and the first couple of days of the next month, OR, the calendar could be blank for those days. Set showTails 'yes' to see the previous and next few days. Set showTails to 'no' for blank boxes"|t,
+		instructions: "**yes** = Show events of the last days of the previous month (eg. Jan 30 and Jan 31) and first few days of the next month (Mar 1 and Mar 2)<br>**no** =  Show blank boxes which optionally can have text or images"|t,
 		value: settings.showTails,
 		errors: settings.getErrors('showTails')
 	})
@@ -58,7 +58,7 @@
 		label: "rowOfDaysFormat"|t,
 		id: 'rowOfDaysFormat',
 		name: 'rowOfDaysFormat',
-		instructions: "A PHP Date compliant format for the names of the days of the week at the top of a calendar. If blank, then that row will not be displayed<br>Example: 'l' would give Sunday, Monday, etc."|t,
+		instructions: "A PHP <a href='https://www.php.net/manual/en/datetime.format.php'>DateTime::format</a> compliant format for the names of the days of the week at the top of a calendar. If blank, then that row will not be displayed<br>Capital D for Sun, Mon, etc.  Lowercase L for Sunday, Monday, etc."|t,
 		value: settings.rowOfDaysFormat,
 		errors: settings.getErrors('rowOfDaysFormat')
 	})

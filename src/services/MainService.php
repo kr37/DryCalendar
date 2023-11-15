@@ -193,13 +193,13 @@ class MainService extends Component
 			//BUG ALERT: These constants for the length of a day or week need to be changed
 			//because on daylight savings days, the length of the day is different.
 			for ($i=$next_date_to_display; $i<$next_date_to_display+7*86400; $i+=86400) {
-				$out .= "			<th>".date($cal->rowOfDaysFormat,$i)."</td>\n";
+				$out .= "			<th>".date($cal->rowOfDaysFormat,$i)."</th>\n";
 			}
 			$out .= "		</tr>\n";
 		}
 		//Output the remaining calendar
 		while ($next_date_to_display <= $cal->actualEndNum) {
-			$next_date_to_display=$this->lineofevents($cal, $next_date_to_display, $out);
+			$next_date_to_display = $this->lineofevents($cal, $next_date_to_display, $out);
 		}
 		$out .= "	</table>\n</div><!--cal37-->\n";
 
