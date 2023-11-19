@@ -12,6 +12,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Update internal date formats to use DateTime
 - Fix htmlBefore and htmlAfter on calUpdate page and in controller
 
+## 4.0.2+20231118
+### Changed
+- Updated templates for settings and calendarOccurrencesField to include isLivestreamed overrides for category, entry override, and occurrence override
+- Added 'streamed' to the addOccurrence controller.
+- Added 'streamed' to calUpdate.
+### Fixed
+- Changed the Garnish JS to calendarText instead of calendarTitle.
+- Fixed the count on the occurrences field, by changing to canonicalId.
+- Calupdate 'update' button is styled.
 ## 4.0.1+20231115
 ### Changed
 - Clarified settings instructions

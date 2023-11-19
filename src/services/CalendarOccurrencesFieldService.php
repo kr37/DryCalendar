@@ -213,7 +213,7 @@ class CalendarOccurrencesFieldService extends Component
     public function getOneDaysOccurrences($event_id, $dateYmd) {
     // Part of the reply from an ajax add or delete of an occurrence
         $results = (new Query())
-            ->select(['id', 'dateYmd', 'timestr', 'alt_text'])
+            ->select(['id', 'dateYmd', 'timestr', 'alt_text', 'streamed'])
             ->from(Plugin::CALENDAR_TABLE.' c37')
             ->where("event_id = '$event_id'") 
             ->andWhere("dateYmd = '$dateYmd'")

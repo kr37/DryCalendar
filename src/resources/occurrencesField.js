@@ -11,10 +11,10 @@ jQuery(document).ready(function(){
 
     Garnish.calendarOccurrencesField = Garnish.Base.extend(
         {
-            startDateFieldHandle: "startDate-field",
-            entryCalendarTextFieldHandle: "fields-calendarTitle",
-            'fieldIdSelector': null,
-            options: {},
+            startDateFieldHandle:           "startDate-field",
+            entryCalendarTextFieldHandle:   "fields-calendarText",
+            'fieldIdSelector':              null,
+            options:                        {},
             init: function (fieldId, settings) {
                 this.options = $.extend({}, Garnish.calendarOccurrencesField.defaults, settings);
                 this.startDateFieldHandle = this.options.startDateFieldHandle;
@@ -141,8 +141,9 @@ function updateInfo() {
                             //$('#fields-startDate-field').val(); 
                             //+Garnish.calendarOccurrencesField.startDateField).val();
     var endDate   = $('input[name="expiryDate[date]"]').val();
-    var text      = $('textarea[name="fields[calendarTitle]"]').val();
-    //var text      = $('#'+Garnish.calendarOccurrencesField.entryCalendarTextFieldHandle).val() 
+    var text      = $('textarea[name="fields[calendarText]"]').val();
+    //console.log( {{Garnish.calendarOccurrencesField.entryCalendarTextFieldHandle }} );
+    //var text      = $('#' + {{Garnish.calendarOccurrencesField.entryCalendarTextFieldHandle }} ).val() 
     text          = text ? text : 'No text set. Will use the title.';
     var info = 'Start Date: ' + startDate + ' &nbsp; End Date: ' + endDate;
     info += ' &nbsp; Default text: <strong>' + text + '</strong>';
@@ -245,6 +246,7 @@ function updateCell(obj, dbDate, calItemID) {
                'timestr'        : time, 
                'alt_text'       : altText,
                'cal37_category' : jQuery('#cal37_category').val(),
+               'streamed'       : jQuery('#fields-streamed').val()
             };
             Craft.postActionRequest(
                 'drycalendar/calendar-occurrences-field/add-occurrence', 

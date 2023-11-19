@@ -56,7 +56,15 @@
 
 				<br><label for="AltText">Enter alternate text, if any:</label>
 				<input id="alt_text" type="text" size="30" name="alt_text">
-				<input type="submit" value="update">
+                <div class="cpControl">
+                    <label for="streamed">Streamed? (Overrides the default for this entry or category))</label>
+                    <SELECT id="streamed" name="streamed">
+                        <option value="">Default</option>
+                        <option value="yes">Yes, streamed</option>
+                        <option value="no">No, not streamed</option>
+                    </SELECT><br>
+                </div>
+				<input id="calupdateSubmit" type="submit" value="update">
 			</fieldset>
 		</div>
 

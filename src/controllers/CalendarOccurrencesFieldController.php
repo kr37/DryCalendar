@@ -75,6 +75,7 @@ class CalendarOccurrencesFieldController extends Controller
         $instance->dateYmd  = $request->getParam( 'dateYmd');
         $instance->timestr  = $request->getParam( 'timestr');
         $instance->alt_text = $request->getParam( 'alt_text');
+        $instance->streamed = $request->getParam( 'streamed');
         
         // Do it
         $result = $fieldService->addOccurrence($instance);

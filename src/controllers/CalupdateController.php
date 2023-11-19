@@ -28,6 +28,7 @@ class CalupdateController extends Controller
 		$timestr  = $request->getParam('time1');
 		$event_id = $request->getParam('post_id');
 		$alt_text = $request->getParam('alt_text');
+		$streamed = $request->getParam('streamed');
 
 		foreach($allTheQueryParams as $name => $value) {
 			$first3 = substr($name,0,3);
@@ -39,6 +40,7 @@ class CalupdateController extends Controller
 						$occurrence->timestr = $timestr;
 						$occurrence->event_id = $event_id;
 						$occurrence->alt_text = $alt_text;
+						$occurrence->streamed = $streamed;
 						if ($occurrence->event_id AND $occurrence->timestr != "choose") {
 							$occurrence->dateYmd = $remain;
 							if ($occurrence->save()) {

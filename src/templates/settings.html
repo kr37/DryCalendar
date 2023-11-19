@@ -234,6 +234,16 @@ $(function() {
 }}
 
 {{ forms.textField({
+        label: "'Whether streamed?' Field Handle"|t,
+        id: 'entryStreamedFieldHandle',
+        name: 'entryStreamedFieldHandle',
+        instructions: "In the entry, what field contains a yes/no override for whether it's streamed?"|t,
+        value: settings.entryStreamedFieldHandle,
+        errors: settings.getErrors('imageFieldHandle')
+    }) 
+}}
+
+{{ forms.textField({
         label: "Image Field Handle"|t,
         id: 'imageFieldHandle',
         name: 'imageFieldHandle',
@@ -264,6 +274,16 @@ $(function() {
         instructions: "In the category, what field tells us the CSS"|t,
         value: settings.cssFieldHandle,
         errors: settings.getErrors('cssFieldHandle')
+    }) 
+}}
+
+{{ forms.textField({
+        label: "'Whether streamed?' Field Handle"|t,
+        id: 'categoryStreamedFieldHandle',
+        name: 'categoryStreamedFieldHandle',
+        instructions: "In the category, what field contains a yes/no override for whether it's streamed?"|t,
+        value: settings.categoryStreamedFieldHandle,
+        errors: settings.getErrors('imageFieldHandle')
     }) 
 }}
 

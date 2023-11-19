@@ -20,12 +20,15 @@ class Settings extends Model
     public $dateformat;
     public $dateformat1st;
 
-    public $categoryFieldHandle;
     public $entryCalendarTextFieldHandle;
-    public $imageFieldHandle;
     public $cssFieldHandle;
     public $startDateFieldHandle;
+    public $imageFieldHandle;
+    public $entryStreamedFieldHandle;
     public $urlFieldHandle;
+
+    public $categoryFieldHandle;
+    public $categoryStreamedFieldHandle;
 
     public $timezone = "america/denver";
 

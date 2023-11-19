@@ -11,3 +11,5 @@
 #fields-cal37_micro td { border: 1px solid gray; text-align: right; }
 
 .calday { width: 2.5em; }
+
+.cpControl { border: 1px solid gray; margin-top: 1px; padding: 0 .2em 0 .4em; }

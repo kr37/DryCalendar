@@ -299,6 +299,13 @@ class MainService extends Component
 				$program  = $event->title;
 				if ($event->imageAsTitle) $time='';
 			}
+/*			if ($row['streamed']) {
+				$streamed  = $row['streamed'];
+			} else {
+				$streamed  = $event->isLivestreamed;
+				if ($event->imageAsTitle) $time='';
+			}
+*/
 			if ($cal->calupdate) {
 				$program .= " {$entryID}";
 				$updateCheckbox = "<input type='checkbox' name='del{$row['id']}' >\n						";

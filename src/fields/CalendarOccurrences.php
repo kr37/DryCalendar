@@ -37,7 +37,7 @@ class CalendarOccurrences extends Field
         Craft::$app->getView()->registerJs("new Garnish.calendarOccurrencesField('cal37_choose_dates_button', $params)");       
 
         // Find out how many times this post is already in the calendar (for the button caption)
-        $count = FieldService::eventOccurrencesCount($element->id); 
+        $count = FieldService::eventOccurrencesCount($element->canonicalId); 
 
         return $view->renderTemplate('drycalendar/calendaroccurrences/input1', [
             'field' => $this,
