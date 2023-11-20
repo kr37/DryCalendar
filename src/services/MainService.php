@@ -18,14 +18,24 @@ class MainService extends Component
 
 	private $twigAtts;
 	private $settings;
-	private $categoryFieldHandle;
-	private $imageFieldHandle;
+	private $catFieldHandle;
+	private $cssFieldHandle;
+	private $entryStreamedFieldHandle;
+	private $catStreamedFieldHandle;
+
+    function __construct() {
+		$this->settings                 = Plugin::$plugin->getSettings();
+        $this->catFieldHandle           = $this->settings->categoryFieldHandle;
+        $this->cssFieldHandle           = $this->settings->cssFieldHandle;
+        $this->entryStreamedFieldHandle = $this->settings->entryStreamedFieldHandle;
+        $this->catStreamedFieldHandle   = $this->settings->categoryStreamedFieldHandle;
+    }
+
 
 	public function initCal($fromDateYmd=NULL, $toDateYmd=NULL, $atts=array()) {
 	// Creates a new CalendarModel object, populating all the event occurrences
 	// Parameters come from either the calling function (TWIG) or from GET/POST. GET/POST always override.
 
-		$this->settings = Plugin::$plugin->getSettings();
 		$this->twigAtts = $atts;
 
 		$cal = new CalendarModel;
@@ -72,7 +82,7 @@ class MainService extends Component
 
 		// OK, pull all occurrences from the db
         $cal->occurrence = (new Query())
-            ->select("c37.id, event_id, dateYmd, timestr, alt_text, css_class, userjson")
+            ->select("c37.id, event_id, dateYmd, timestr, alt_text, streamed, css_class, userjson")
 			->from(Plugin::CALENDAR_TABLE . " c37")
             ->leftJoin('craft_elements', 'c37.event_id = craft_elements.id')
 			->where("c37.dateYmd >= '{$cal->actualStartYmd()}'")
@@ -94,9 +104,7 @@ class MainService extends Component
 				    $eventIsValid[$eventID] = 'no';
 					continue;
 				}
-                $catFieldHandle = $this->settings->categoryFieldHandle;
-                $cssFieldHandle = $this->settings->cssFieldHandle;
-				$category = $entry->$catFieldHandle->inReverse()->one();
+				$category = $entry->{$this->catFieldHandle}->inReverse()->one();
 
 				$eventIsValid[$eventID] = 'no'; //We'll change it to yes if it turns out to be good.
 				if ( empty($cal->categoriesToInclude) || in_array($category->id, $cal->categoriesToInclude) ) {
@@ -104,7 +112,7 @@ class MainService extends Component
 						$eventIsValid[$eventID] = 'yes';
 						$event = new DryCalendar_EventModel;
 						$event->url         = $entry->getUrl();
-						$event->css         = (isset($category)) ? $category->$cssFieldHandle : '';
+						$event->css         = (isset($category)) ? $category->{$this->cssFieldHandle} : '';
 						$event->eventHandle = (isset($category)) ? $category->slug : '';
 						$event->title       = $entry->{$this->settings->entryCalendarTextFieldHandle} ?: $entry->title;
                         if (!is_null($entry->calendarImage)) {
@@ -114,6 +122,9 @@ class MainService extends Component
                                 $event->imageAsTitle = true;
                             }
                         }
+                        $event->streamed = $entry->{$this->entryStreamedFieldHandle}->value ?: $category->{$this->catStreamedFieldHandle}->value;
+                        //$event->streamed['entry'] = $entry->{$this->entryStreamedFieldHandle};
+                        //$event->streamed['cat']   = $category->{$this->catStreamedFieldHandle};
 						$cal->event[$eventID]   = $event;
 						$cal->entries[$eventID] = $entry;
 					}
@@ -128,7 +139,7 @@ class MainService extends Component
         $cal->setLinkToNext();
 
 		// How will we create URLs?
-		$cal->urlFieldHandle = $this->settings->categoryFieldHandle;
+		$cal->urlFieldHandle = $this->catFieldHandle;
 		return $cal;
 	}
 
@@ -299,13 +310,8 @@ class MainService extends Component
 				$program  = $event->title;
 				if ($event->imageAsTitle) $time='';
 			}
-/*			if ($row['streamed']) {
-				$streamed  = $row['streamed'];
-			} else {
-				$streamed  = $event->isLivestreamed;
-				if ($event->imageAsTitle) $time='';
-			}
-*/
+			$streamed = 'streamed-' . ($row['streamed'] != ''  ?  $row['streamed']  :  $event->streamed);
+
 			if ($cal->calupdate) {
 				$program .= " {$entryID}";
 				$updateCheckbox = "<input type='checkbox' name='del{$row['id']}' >\n						";
@@ -314,7 +320,7 @@ class MainService extends Component
             }
 
 			$out .= <<<ONEOCCURRENCE
-					<li data-instance_id='{$row['id']}' data-event_id='$entryID' data-category='{$event->eventHandle}' class='$class {$row['timestr']} $cal->tailStyle'>
+					<li data-instance_id='{$row['id']}' data-event_id='$entryID' data-category='{$event->eventHandle}' class='$class  $streamed {$row['timestr']} $cal->tailStyle'>
 						$updateCheckbox<a href='{$url}'>
 ONEOCCURRENCE;
 			$out .= sprintf($cal->occurrenceFormat, $time, $program) . "</a>\n					</li>\n";

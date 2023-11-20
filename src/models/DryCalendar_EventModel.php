@@ -8,4 +8,5 @@ class DryCalendar_EventModel
 	public $eventHandle;  // 
 	public $url;          // The url to link to
 	public $imageAsTitle;
+    public $streamed;     // Whether we need to indicate it is streamed
 }

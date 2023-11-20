@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Update internal date formats to use DateTime
 - Fix htmlBefore and htmlAfter on calUpdate page and in controller
 
+## 5.0.0-alpha+20231119
+Moving toward: 1) Livestream indication, 2) Installation-generic (no hard-coded installation-specific details)
+### Changed
+- In MainService, streamed is properly calculated from occurrence, entry, and category, with a class added to the occurrence in the calendar output.
+- Moved calculation of handles into __construct.
 ## 4.0.2+20231118
 ### Changed
 - Updated templates for settings and calendarOccurrencesField to include isLivestreamed overrides for category, entry override, and occurrence override
