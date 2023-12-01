@@ -108,6 +108,7 @@ class DryCalendarVariable
         $settings = Plugin::$plugin->getSettings();
         date_default_timezone_set($settings->timezone);
         $reqDateYmd = ($reqDateYmd) ?: date('Y-m-d');
+        $reqDateYmd = date('Y-m-d', strtotime($reqDateYmd));
         // If not passed a $cal object, then create a new one.
         $cal = (isset($cal)) ? $cal : $this->miniCalInit($reqDateYmd, $reqDateYmd, $atts);
         return Plugin::$plugin->services->events1day_all($cal, strtotime($reqDateYmd), 'miniCal');

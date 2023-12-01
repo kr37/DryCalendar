@@ -12,6 +12,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Update internal date formats to use DateTime
 - Fix htmlBefore and htmlAfter on calUpdate page and in controller
 
+## 5.0.0-beta+20231130
+### Fixed
+- Very minor bugfixes
 ## 5.0.0-alpha+20231119
 Moving toward: 1) Livestream indication, 2) Installation-generic (no hard-coded installation-specific details)
 ### Changed

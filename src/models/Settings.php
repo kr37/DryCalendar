@@ -30,7 +30,7 @@ class Settings extends Model
     public $categoryFieldHandle;
     public $categoryStreamedFieldHandle;
 
-    public $timezone = "america/denver";
+    public $timezone = "america/los_angeles";
 
     public function rules(): array
     {
