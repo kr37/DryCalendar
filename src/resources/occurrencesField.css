@@ -1,7 +1,7 @@
 #fields-cal37_choose_dates_button { background-color: pink; }
 
 #fields-cal37_event_inserter { width:100%; }
-
+#fields-cal37_event_inserter label { margin: 3px; }
 .cal37_one_micro_cal {  /* Container for a table with it's title */
 	float: left;
 	text-align: center;

@@ -16,30 +16,31 @@
         <div id="calupdatetable">
             <fieldset>
                 <div id='cal37_time_alt_text'>
-                    <div class="cpControl">
-                        <label for='time1'>Time</label>
+                    <label>1. Time
                         <SELECT id="time1" name="time1">
                             {{ event_times|raw }}
-                        </SELECT><br>
-                    </div>
-                    <div class="cpControl">
-                        <label for="alt_text">Alternate Text (optional)</label>
-                        <input id="alt_text" type="text" size="30" name="txt"><br>
-                    </div>
-                    <div class="cpControl">
-                        <label for="streamed">Streamed? (Overrides the default for this entry or category))</label>
+                        </SELECT>
+                    </label>
+                    <br>
+                    <label>2. Alternate Text
+                        <input id="alt_text" type="text" size="30" name="txt"> (Optional. Instead of Calendar Text or the Title.)
+                    </label>
+                    <br>
+                    <label>3. Streamed? 
                         <SELECT id="streamed" name="streamed">
                             <option value="">Default</option>
                             <option value="yes">Yes, streamed</option>
                             <option value="no">No, not streamed</option>
-                        </SELECT><br>
-                    </div>
+                        </SELECT>
+                        (Overrides the default for this entry or category))
+                    </label>
+                    <br>
                 </div>
-                <div id='cal37_multiclick' class="cpControl">
+                <!--div id='cal37_multiclick' class="cpControl">
                     Clicking on a green or blue square:<br> 
                     <input type="radio" name="multiOrDelete" value="multi" checked="checked" disabled>Adds another event to the same day<br>
                     <input type="radio" name="multiOrDelete" value="delete" checked='checked' disabled>Deletes the oldest event
-                </div>
+                </div-->
             </fieldset>
         </div>
 

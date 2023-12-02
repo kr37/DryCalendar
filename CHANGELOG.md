@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Update internal date formats to use DateTime
 - Fix htmlBefore and htmlAfter on calUpdate page and in controller
 
+## 5.0.???
+### Changed
+- In the ajax field, hid the disabled radio for multi vs delete.
+- Cosmetic changes to the ajax field.
 ## 5.0.0+20231201
 ### Changed
 - On CalUpdate, cleaned up and sorted "Choose a program..."
