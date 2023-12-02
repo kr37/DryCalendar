@@ -421,7 +421,8 @@ ONEOCCURRENCE;
 		    ->startDate(array("<={$cal->actualEndYmd()}", NULL))
 		    ->expiryDate(array(">={$cal->actualStartYmd()}", NULL))
 		    ->status(['live'])
-		    ->orderBy( [$this->settings->entryCalendarTextFieldHandle => SORT_ASC] )
+		    //->orderBy( [$this->settings->entryCalendarTextFieldHandle => SORT_ASC] )
+		    ->orderBy( ['title' => SORT_ASC] )
             ->all();
 		return $entries;
 	}
@@ -439,11 +440,14 @@ ONEOCCURRENCE;
 		$eventsOptions = '';
 		foreach ($events as $row) {
 			$name = $row->{$this->settings->entryCalendarTextFieldHandle} ?: $row->title ?: "Entry ID: {$row->id}";
-			$eventsOptions .= "<OPTION VALUE='{$row->id}'>$name &nbsp; | &nbsp; {$row->$categoryField->inReverse()->one()->title}";
+			//$eventsOptions .= "<OPTION VALUE='{$row->id}'>$name &nbsp; | &nbsp; {$row->$categoryField->inReverse()->one()->title}";
 			if ($row->expiryDate > '0000-00-00') {
-				$eventsOptions .= " &nbsp; | &nbsp; {$row->startDate->format('Y-m-d')} - {$row->expiryDate->format('Y-m-d')}";
-			}
-			$eventsOptions .= "</OPTION>\n					";
+                $dir = "STYLE='direction: rtl'";
+				$dates = " &nbsp; | &nbsp; {$row->startDate->format('M d, Y')} - {$row->expiryDate->format('M d, Y')}";
+			} else {
+                $dir = ''; $dates = '';
+            }
+			$eventsOptions .= "<OPTION $dir VALUE='{$row->id}'>$name $dates</OPTION>\n					";
 		}
 		return $eventsOptions;
 	}

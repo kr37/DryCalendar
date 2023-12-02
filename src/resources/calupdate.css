@@ -145,3 +145,6 @@ ul#gkr_cal_filteroptions li:hover a {
 
 .streamed-yes:after { content: "ZOOM"; }
 .streamed-no:after { content: "No-zoom"; }
+
+input[type=text]   { border: 1px solid navy; }
+input[type=submit] { border: 1px solid navy; padding: 0 1em 3px; background: pink; cursor: pointer; }

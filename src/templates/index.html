@@ -33,37 +33,54 @@
 	{% set atts = { 'calupdate' : true } %}
 	{% set cal = craft.DryCalendar.init(null,null,atts)|raw %}
 
+    <form style="float:right;" method="get" action="/{{ craft.app.request.fullPath()|raw }}">
+        {% set segments = craft.app.request.segments() %}
+        {% if 'calstart' in segments|keys %}
+            {% set calstart = segments['calstart']|date("Y-m-d") %}
+        {% else %}
+            {% set calstart = 'now'|date("Y-m-d") %}
+        {% endif %}
+        <input type="hidden" name="calstart" value="{{ calstart }}">
+        <p>
+            For a multi-month calendar,<br>
+            enter new ending date: <input type="text" size="10" maxlength="10" name="calend" placeholder="yyyy-mm-dd"><br>
+            <input type="submit" value="Go">
+        </p>
+    </form>
+
 	<p><strong>Instructions:</strong></p>
 	<ul>
 		<li>To add events, put a check by the date of each cell. </li>
 		<li>To delete events, put checks in front of the particular event instances that need to be deleted.</li>
+	    <li>Then press update.  You can add and delete at the same time.</li>
 	</ul>
-	<p>Then press update.  You can add and delete at the same time.</p>
-
+    <br>
 	<form method="post" action="" accept-charset="UTF-8">
 		<input type="hidden" name="action" value="drycalendar/calupdate/add-and-delete-instances">
 		<input type="hidden" name="{{ craft.app.config.general.csrfTokenName }}" value="{{ craft.app.request.csrfToken }}">
 		<div id="calupdatetable">
 			<fieldset>
-				<SELECT NAME="post_id">
+				1. <SELECT NAME="post_id">
 					<OPTION VALUE="">Choose a Program...</option>
 					{{ craft.DryCalendar.calUpdateEventsOptions(cal)|raw }}
 				</SELECT>
-
-				<SELECT name="time1">
+                <br>
+				2. <SELECT name="time1">
 				{{ craft.DryCalendar.calUpdateAvailableTimes()|raw }}
 				</SELECT>
-
-				<br><label for="AltText">Enter alternate text, if any:</label>
-				<input id="alt_text" type="text" size="30" name="alt_text">
-                <div class="cpControl">
-                    <label for="streamed">Streamed? (Overrides the default for this entry or category))</label>
+				<br>
+                <label>3. Enter alternate text, if any: <input id="alt_text" type="text" size="30" name="alt_text"></label>
+                <br>
+                <label>4. Streamed? 
                     <SELECT id="streamed" name="streamed">
                         <option value="">Default</option>
                         <option value="yes">Yes, streamed</option>
                         <option value="no">No, not streamed</option>
-                    </SELECT><br>
-                </div>
+                    </SELECT>
+                    (Overrides the default for this entry or category)
+                </label>
+                <br>
+                5. Tick all the checkboxes next to dates where you want this inserted.<br>
 				<input id="calupdateSubmit" type="submit" value="update">
 			</fieldset>
 		</div>

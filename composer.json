@@ -2,7 +2,7 @@
     "name"          : "kr37/drycalendar",
     "description"   : "Calendar plugin with unrestricted repetition for Craft CMS 3",
     "type"          : "craft-plugin",
-    "version"       : "4.0.2+20231117",
+    "version"       : "5.0.0+20231201",
     "schemaVersion" : "4.0.0",
     "keywords"      : [
                         "craft",
