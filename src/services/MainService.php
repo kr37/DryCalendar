@@ -99,7 +99,13 @@ class MainService extends Component
 				// Collect info about this event. Especially, determine whether or not to display it.
 				$entry    = Craft::$app->entries->getEntryById($eventID);
 				if ($entry==null) {
-					mail("kelsangrinzin@gmail.com","Craft DryCalendar debugging", "In the drycalendar table, there is a record with event_id = $eventID, but there is no corresponding entry number $eventID. I think you should delete this entry for the drycalendar table.");
+					//if ($occurrence && $occurrence->delete()) {
+						//$success_del++;
+						//$del++;
+					//}
+					mail("kelsangrinzin@gmail.com","Craft DryCalendar debugging", "In the drycalendar table, there is a record with event_id = $eventID, but there is no corresponding entry number $eventID. I think you should delete this entry for the drycalendar table. But see if you get another email!!");
+                    $occ2delete = Drycalendar::findOne($remain);
+					mail("kelsangrinzin@gmail.com","Craft DryCalendar debugging", "In the drycalendar table, there is a record with event_id = $eventID, but there is no corresponding entry number $eventID. I think you should delete this entry for the drycalendar table.\n\n" . print_r($occ2delete, true));
 					unset($cal->occurrence['key']);
 				    $eventIsValid[$eventID] = 'no';
 					continue;
