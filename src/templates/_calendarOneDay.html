@@ -1,0 +1,20 @@
+{# Output one day's worth of events #}
+
+{% if (noDate != 'yes') %}
+	<p class='date {{newMonthCss}} {{monthCss}} {{otherCss}}'>
+	{%- if calUpdate %}<input type='checkbox' name='add{{date}}'>{% endif -%}
+	{{ pDate }}</p>
+{% endif %}
+
+	<ul class='cal37 cal37_calendar {{otherCss}}' >
+	{% for occurrence in occurrences %}
+		{% set atLeastOne = 1 %}}
+		{% set entry = entries[occurrence.event_id] %}
+		{% set category = categories[occurrence.event_id] %}
+		
+		<li data-instance_id='{{occurrence.id}}' data-event_id='{{entry.id}}' data-category='{{category[entry.id].slug}}' class='{{tailStyle}}'>        
+			{{occurrence.updateCheckbox}}<a href='{{entry.url}}'>{{time}} {{program}}</a>
+		</li>
+	{% endfor %}
+	</ul>
+	{% if atLeastOne is defined %}<br>{% endif %}

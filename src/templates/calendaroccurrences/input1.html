@@ -1,0 +1,50 @@
+<script>
+    var entry_id = {{ craft.app.request.segments|last|split('-')|first }};
+    var cal37_numOccurrences = {{ count }};
+</script>
+
+
+<button type="button" id="cal37_choose_dates_button">There {{ (count != 1) ? 'are ' ~ count ~ ' occurrences' : 'is 1 occurrence' }} in the calendar</button>
+
+<br>
+<label for='fields-cal37_info'>Current info</label>
+<div id='cal37_info'>
+</div>
+
+<div id='cal37_event_inserter' style='display: none;'>
+    <!--form id="calupdate-form" onclick="return displayCalendars()" action="" method="post"-->
+        <div id="calupdatetable">
+            <fieldset>
+                <div id='cal37_time_alt_text'>
+                    <label>1. Time
+                        <SELECT id="time1" name="time1">
+                            {{ event_times|raw }}
+                        </SELECT>
+                    </label>
+                    <br>
+                    <label>2. Alternate Text
+                        <input id="alt_text" type="text" size="30" name="txt"> (Optional. Instead of Calendar Text or the Title.)
+                    </label>
+                    <br>
+                    <label>3. Streamed? 
+                        <SELECT id="streamed" name="streamed">
+                            <option value="">Default</option>
+                            <option value="yes">Yes, streamed</option>
+                            <option value="no">No, not streamed</option>
+                        </SELECT>
+                        (Overrides the default for this entry or category))
+                    </label>
+                    <br>
+                </div>
+                <!--div id='cal37_multiclick' class="cpControl">
+                    Clicking on a green or blue square:<br> 
+                    <input type="radio" name="multiOrDelete" value="multi" checked="checked" disabled>Adds another event to the same day<br>
+                    <input type="radio" name="multiOrDelete" value="delete" checked='checked' disabled>Deletes the oldest event
+                </div-->
+            </fieldset>
+        </div>
+
+        <div id="cal37_micro" width="300px">
+        </div>
+    <!--/form-->
+</div>
