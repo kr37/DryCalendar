@@ -18,18 +18,20 @@ jQuery(document).ready(function(){
             init: function (fieldId, settings) {
                 this.options = $.extend({}, Garnish.calendarOccurrencesField.defaults, settings);
                 this.startDateFieldHandle = this.options.startDateFieldHandle;
+                this.endDateFieldHandle   = this.options.endDateFieldHandle;
 
                 console.log("this.options.startDateFieldHandle: "+this.options.startDateFieldHandle);
+                console.log("this.options.endDateFieldHandle: "+this.options.endDateFieldHandle);
                 console.log("this.options.entryCalendarTextFieldHandle: "+this.options.entryCalendarTextFieldHandle);
 
                 this.startDateField = $('#' + this.options.fieldSelector + this.startDateFieldHandle);
-                //console.log(this.startDateField);
+                //console.log("Start Date Field: " + this.startDateField.handle);
 
                 this.$field = $('#' + this.options.fieldSelector + fieldId);
                 this.addListener(this.$field, 'click', $.proxy(this, 'clickEvent'));
                 console.log("addListener("+'#' + this.options.fieldSelector + fieldId+", 'click', $.proxy(this, 'clickEvent'))");
                 $('#fields-'+this.options.startDateField).change(function(data) { updateInfo(); });
-                $('#expiryDate-date').change(function(data) { updateInfo(); });
+                $('#endDate-date').change(function(data) { updateInfo(); });
                 $('#'+this.options.entryCalendarTextFieldHandle).change(function(data) { updateInfo(); });
                 console.log("Finished Garnish.calendarOccurrencesField.init("+fieldId+")");
                 updateInfo();
@@ -67,7 +69,8 @@ jQuery(document).ready(function(){
                 }
                 
                 //Get End Date
-                var end_date   = new Date(jQuery("input[name='expiryDate[date]'").val());
+                //var end_date   = new Date(jQuery("input[name='endDate[date]'").val());
+                var end_date   = new Date( jQuery('input[id^=fields-endDate]').val() );
                 console.log("end_date: "+end_date);
                 if (end_date < start_date) {
                     alert("End Date should not occur before Start Date.\nLet's assume that the End Date is the same as the Start Date.");
@@ -140,9 +143,10 @@ function updateInfo() {
     var startDate = $('input[id^=fields-startDate]').val(); 
                             //$('#fields-startDate-field').val(); 
                             //+Garnish.calendarOccurrencesField.startDateField).val();
-    var endDate   = $('input[name="expiryDate[date]"]').val();
+    var endDate   = $('input[id^=fields-endDate]').val();
     var text      = $('textarea[name="fields[calendarText]"]').val();
     //console.log( {{Garnish.calendarOccurrencesField.entryCalendarTextFieldHandle }} );
+    //console.log( {{Garnish.calendarOccurrencesField.endDateFieldHandle }} );
     //var text      = $('#' + {{Garnish.calendarOccurrencesField.entryCalendarTextFieldHandle }} ).val() 
     text          = text ? text : 'No text set. Will use the title.';
     var info = 'Start Date: ' + startDate + ' &nbsp; End Date: ' + endDate;

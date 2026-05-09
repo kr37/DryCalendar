@@ -25,6 +25,10 @@ class SettingsService extends Component
         return Plugin::$plugin->getSettings()->startDateFieldHandle;
     }
 
+    public function getEndDateFieldHandle() {
+        return Plugin::$plugin->getSettings()->startDateFieldHandle;
+    }
+
     public function getImageFieldHandle() {
         return Plugin::$plugin->getSettings()->imageFieldHandle;
     }

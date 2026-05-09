@@ -29,9 +29,11 @@ class CalendarOccurrences extends Field
         $settings = Plugin::$plugin->getSettings();
         $startDateFieldHandle = Craft::$app->View->namespaceInputId($settings['startDateFieldHandle']) . '-date';
         $startDateFieldHandle = Craft::$app->View->namespaceInputId($settings['startDateFieldHandle']);
+        $endDateFieldHandle   = Craft::$app->View->namespaceInputId($settings['endDateFieldHandle']);
         $calendarText = Craft::$app->View->namespaceInputId($settings['entryCalendarTextFieldHandle']);
         $params = json_encode([
                 'startDateFieldHandle' => $startDateFieldHandle,
+                  'endDateFieldHandle' =>   $endDateFieldHandle,
                 'entryCalendarTextFieldHandle' => $calendarText,
             ]);
         Craft::$app->getView()->registerJs("new Garnish.calendarOccurrencesField('cal37_choose_dates_button', $params)");       
