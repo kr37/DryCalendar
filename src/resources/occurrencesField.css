@@ -1,5 +1,6 @@
-#fields-cal37_choose_dates_button { background-color: pink; }
+#fields-cal37_choose_dates_button { color: white; background-color: #DC2626; border-radius: .7em; padding: .5em .8em; border: 1px solid white; }
 
+#fields-cal37_time_alt_text p { padding: .9em 0 0; }
 #fields-cal37_event_inserter { width:100%; }
 #fields-cal37_event_inserter label { margin: 3px; }
 .cal37_one_micro_cal {  /* Container for a table with it's title */
