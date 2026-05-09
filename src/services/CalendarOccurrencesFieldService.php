@@ -33,8 +33,19 @@ class CalendarOccurrencesFieldService extends Component
             ->all();
             
         // Get the right title for each occurrence
+
+        // If we default to the event title
+        $entry = Craft::$app->entries->getEntryById($miniCal->entry_id);
+        // If we default to the Calendar Text field
+        if (substr($miniCal->calendar_text, 0, 3)==='<p>' & substr($miniCal->calendar_text, -4, 4)==="</p>") {
+            $calendarText = substr($miniCal->calendar_text, 3, -4);
+        } else {
+            $calendarText = $miniCal->calendar_text;
+        }
+        // OK, figure it out
         foreach($miniCal->occurrence as $key => $occurrence) {
-            $miniCal->title2disp[$key] = $occurrence['alt_text']?: $miniCal->calendar_text ?: $miniCal->entry_id;
+            //$miniCal->title2disp[$key] = $occurrence['alt_text']?: $miniCal->calendar_text ?: $miniCal->entry_id;
+            $miniCal->title2disp[$key] = $occurrence['alt_text']?: $calendarText ?: $entry->title;
         }
         
         if (is_array($miniCal->title2disp)) {
